@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Logo from '@/src/shared/asset/img/gif_logo.png';
+import Logo from '@/shared/asset/img/gif_logo.png';
 import Image from 'next/image';
 
 export default function Header() {
