@@ -10,6 +10,6 @@ export interface User {
 
 export interface SignupData {
   name: string;
-  studengtId: string;
+  studentId: string;
   role: UserRole;
 }
