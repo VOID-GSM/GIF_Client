@@ -23,4 +23,7 @@ export async function MainView() {
   if (!project) {
     return <EmptyProject role={user.role} />;
   }
+
+  // 프로젝트 있는 경우(아직 구현 안함)
+  return null;
 }
