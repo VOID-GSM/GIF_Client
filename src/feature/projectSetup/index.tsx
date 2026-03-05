@@ -18,11 +18,11 @@ export default function ProjectSetup(){
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
-      <div>
-        <p className="text-2xl font-medium mb-17">
+      <form>
+        <p className="text-2xl font-medium mb-[68px]">
           프로젝트 생성
         </p>
-        <div className="flex flex-col gap-[30px]">
+        <div className="flex flex-col gap-[30px] w-[400px]">
           <TextField placeholder="프로젝트 이름을 입력하세요" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
           <TextField placeholder="팀명을 입력하세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
           <MemberSelect 
@@ -40,7 +40,7 @@ export default function ProjectSetup(){
         <div className="mt-[116px]">
           <ProjectButton text="프로젝트 생성하기" disabled={!isFormValid} />
         </div>
-      </div>
+      </form>
     </div>
   )
 }
