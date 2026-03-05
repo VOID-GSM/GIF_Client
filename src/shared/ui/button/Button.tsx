@@ -1,5 +1,6 @@
 interface ButtonProps {
   children: string;
+  type?: 'button' | 'submit' | 'reset';
   width?: string;
   height?: string;
   disabled?: boolean;
@@ -8,6 +9,7 @@ interface ButtonProps {
 
 export default function Button({
   children,
+  type = 'button',
   disabled = false,
   width = 'w-100',
   height = 'h-12.5',
@@ -18,6 +20,7 @@ export default function Button({
   const variant = disabled ? 'bg-[#E6E6E6] text-white' : 'bg-main-60 text-white cursor-pointer';
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={`${base} ${variant} ${width} ${height}`}
