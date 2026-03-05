@@ -14,14 +14,20 @@ function MemberItem({ id, name, onClick }: MemberItemProps) {
   return (
     <p 
       onClick={onClick}
-      className="text-3 cursor-pointer"
+      className="text-md cursor-pointer"
     >
       {id} {name}
     </p>
   );
 }
 
-export default function MemberSelect({ value, selectedMembers = [], setSelectedMembers }: { value: string; selectedMembers: {id: string; name: string}[]; setSelectedMembers: React.Dispatch<React.SetStateAction<{id: string; name: string}[]>> }) {
+interface MemberSelectProps {
+  value: string;
+  selectedMembers: {id: string; name: string}[];
+  setSelectedMembers: React.Dispatch<React.SetStateAction<{id: string; name: string}[]>>;
+}
+
+export default function MemberSelect({ value, selectedMembers = [], setSelectedMembers }: MemberSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const selectRef = useRef<HTMLDivElement>(null);
@@ -48,9 +54,9 @@ export default function MemberSelect({ value, selectedMembers = [], setSelectedM
   };
 
   return (
-    <div className="relative w-full" ref={selectRef}>
+    <div className="relative w-[400px]" ref={selectRef}>
       <div 
-        className={`w-100 h-[50px] border px-3 rounded-[10px] cursor-text text-[18px] font-medium flex gap-1 items-center
+        className={`w-full h-[50px] border px-3 rounded-[10px] cursor-text text-[18px] font-medium flex gap-1 items-center
           flex-nowrap overflow-x-auto whitespace-nowrap scrollbar-hide
           ${isOpen ? "border-[#000000]" : "border-[#bcbcbc]"}`}
         onClick={() => setIsOpen(!isOpen)}
