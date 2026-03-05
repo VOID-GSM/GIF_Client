@@ -1,6 +1,6 @@
 import GoogleLogo from '@/shared/asset/svg/GoogleLogo';
 
-export default function GoogleLoginBUtton() {
+export default function GoogleLoginButton() {
   return (
     <div className="w-100 h-12.5 flex items-center border border-gray-60 rounded-[10px] py-2 pl-5 gap-15.5">
       <GoogleLogo />
