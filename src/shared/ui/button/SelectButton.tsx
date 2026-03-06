@@ -1,5 +1,5 @@
 interface SelectButtonProps {
-  children: string;
+  children: React.ReactNode;
   width?: string;
   height?: string;
   selected?: boolean;
