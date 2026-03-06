@@ -1,5 +1,5 @@
 interface ButtonProps {
-  children: string;
+  children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
   width?: string;
   height?: string;
