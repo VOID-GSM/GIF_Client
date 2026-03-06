@@ -15,7 +15,7 @@ export default function SelectButton({
 }: SelectButtonProps) {
   const base = 'flex-1 rounded-[10px] border cursor-pointer';
 
-  const variant = selected ? 'bg-main-20 border-main-50' : 'bg-[#E6E6E6] border-[#B5B5B5]';
+  const variant = selected ? 'bg-main-20 border-main-50' : 'bg-gray-100 border-gray-30';
 
   return (
     <button type="button" onClick={onClick} className={`${base} ${variant} ${width} ${height}`}>

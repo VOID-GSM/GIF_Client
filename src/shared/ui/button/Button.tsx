@@ -17,7 +17,7 @@ export default function Button({
 }: ButtonProps) {
   const base = 'rounded-[10px] text-2xl font-semibold';
 
-  const variant = disabled ? 'bg-[#E6E6E6] text-white' : 'bg-main-60 text-white cursor-pointer';
+  const variant = disabled ? 'bg-[#E6E6E6] text-white' : 'bg-main-70 text-white cursor-pointer';
   return (
     <button
       type={type}
