@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import TextField from "@/shared/ui/TextField";
+import Input from "@/shared/ui/input/Input";
 import ProjectButton from "@/shared/ui/ProjectButton";
 import MemberSelect from "./MemberSelect";
 
@@ -23,8 +23,8 @@ export default function ProjectSetup(){
           프로젝트 생성
         </p>
         <div className="flex flex-col gap-[30px] w-[400px]">
-          <TextField placeholder="프로젝트 이름을 입력하세요" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
-          <TextField placeholder="팀명을 입력하세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+          <Input placeholder="프로젝트 이름을 입력하세요" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
+          <Input placeholder="팀명을 입력하세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
           <MemberSelect 
             value="팀원을 추가하세요" 
             selectedMembers={selectedMembers}
