@@ -6,9 +6,7 @@ import Input from '@/shared/ui/input/Input';
 import Button from '@/shared/ui/button/Button';
 import SelectButton from '@/shared/ui/button/SelectButton';
 import { useState } from 'react';
-
-const ROLE_OPTIONS = ['팀장', '팀원'] as const;
-type Role = (typeof ROLE_OPTIONS)[number];
+import { Role, ROLE_OPTIONS } from '@/view/signup/constants/Role';
 
 export default function SignupView() {
   const [name, setName] = useState<string>('');
