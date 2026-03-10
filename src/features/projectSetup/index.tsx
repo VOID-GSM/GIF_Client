@@ -35,6 +35,7 @@ export default function ProjectSetup(){
             placeholder="프로젝트 설명을 입력해주세요"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-[18px]"
           />
         </div>
         <div className="mt-[116px]">
