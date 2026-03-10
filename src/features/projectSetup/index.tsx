@@ -3,6 +3,7 @@ import { useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import ProjectButton from "@/shared/ui/ProjectButton";
 import MemberSelect from "./MemberSelect";
+import Textarea from "@/shared/ui/input/Textarea";
 
 export default function ProjectSetup(){
   const [projectName, setProjectName] = useState("");
@@ -30,12 +31,11 @@ export default function ProjectSetup(){
             selectedMembers={selectedMembers}
             setSelectedMembers={setSelectedMembers}
           />
-          <textarea 
+          <Textarea 
             placeholder="프로젝트 설명을 입력해주세요"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full h-[143px] border border-[#787878] px-[15px] py-3 rounded-[10px] focus:outline-none text-black text-[18px] font-medium placeholder:text-[#8B8B8B] resize-none mt-[18px] scrollbar-hide"
-          ></textarea>
+          />
         </div>
         <div className="mt-[116px]">
           <ProjectButton text="프로젝트 생성하기" disabled={!isFormValid} />
