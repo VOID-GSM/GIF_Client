@@ -1,5 +1,3 @@
-"use client";
-
 interface ProjectButtonProps {
   text: string;
   disabled: boolean; 
