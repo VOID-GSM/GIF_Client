@@ -8,7 +8,7 @@ interface BadgeProps {
 
 export default function Badge({ id, name, onRemove }: BadgeProps) {
   return (
-    <div className="w-auto px-3 h-[30px] bg-[#ededed] rounded-[20px] flex items-center justify-center gap-2">
+    <div className="w-auto px-3 h-[30px] bg-high-emphasis rounded-[20px] flex items-center justify-center gap-2">
       <span className="font-medium text-[14px]">{id} {name}</span>
       <button 
         type="button"

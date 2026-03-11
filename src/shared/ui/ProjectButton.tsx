@@ -10,7 +10,7 @@ export default function ProjectButton({ text, disabled, onClick }: ProjectButton
       onClick={onClick}
       disabled={disabled}
       className={`w-[400px] h-10 rounded-[10px] text-white font-medium text-[20px]
-        ${disabled ? "bg-[#e6e6e6]" : "bg-[#31C690] cursor-pointer"}`}
+        ${disabled ? "bg-[#e6e6e6]" : "bg-main cursor-pointer"}`}
     >
       {text}
     </button>
