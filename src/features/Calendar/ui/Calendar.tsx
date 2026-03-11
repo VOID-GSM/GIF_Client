@@ -7,7 +7,7 @@ import { Cancel } from '@/shared/asset/svg/Cancel';
 const DAY_OF_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const ALL_MONTHS = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
 
-export interface Calendar_Modal {
+export interface CalendarSchedule {
   id: number;
   startDate: Date;
   endDate: Date;
@@ -19,7 +19,7 @@ export function Calendar() {
   const today = new Date();
   const [viewDate, setViewDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [schedules, setSchedules] = useState<Calendar_Modal[]>([]);
+  const [schedules, setSchedules] = useState<CalendarSchedule[]>([]);
   const [range, setRange] = useState<{ start: Date | null; end: Date | null }>({
     start: null,
     end: null,
@@ -43,7 +43,7 @@ export function Calendar() {
 
   const addSchedule = (title: string, color: string) => {
     if (range.start && range.end) {
-      const newSchedule: Calendar_Modal = {
+      const newSchedule: CalendarSchedule = {
         id: Date.now(),
         startDate: range.start,
         endDate: range.end,
@@ -77,12 +77,12 @@ export function Calendar() {
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add("overflow-hidden");
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove("overflow-hidden");
     }
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove("overflow-hidden");
     };
   }, [isModalOpen]);
 
@@ -100,7 +100,7 @@ export function Calendar() {
   }, [viewDate]);
 
   const scheduleMap = useMemo(() => {
-    const map: Record<string, Calendar_Modal[]> = {};
+    const map: Record<string, CalendarSchedule[]> = {};
 
     schedules.forEach((s) => {
       const start = new Date(s.startDate);
