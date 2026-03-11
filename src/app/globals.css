@@ -3,6 +3,7 @@
 @theme {
   --font-family-sans: Pretendard, sans-serif;
 
+  --color-gray-0: #111111;
   --color-gray-10: #1e1e1e;
   --color-gray-20: #454545;
   --color-gray-30: #656565;
@@ -14,15 +15,30 @@
   --color-gray-90: #d7d7d7;
   --color-gray-100: #e3e3e3;
 
-  --color-main-10: #dff6ee;
-  --color-main-20: #d0f2e4;
-  --color-main-30: #a7e7cf;
-  --color-main-40: #7edcba;
-  --color-main-50: #56d1a5;
-  --color-main-60: #31c690;
-  --color-main-70: #259c72;
-  --color-main-80: #1b7454;
-  --color-main-90: #135d42;
+  --color-main: #31c690;
+  --color-green-10: #135d42;
+  --color-green-20: #1b7454;
+  --color-green-30: #259c72;
+  --color-green-40: #27d79c;
+  --color-green-50: #7edcba;
+  --color-green-60: #a7e7cf;
+  --color-green-70: #d0f2e4;
+  --color-green-80: #dff6ee;
+
+  --color-bg-main: #f7fffc;
+  --color-bg-login: #fefefe;
+  --color-bg-opacity: #0000001a;
+
+  --color-main-card: #fafafa;
+  --color-high-emphasis: #ededed;
+  --color-input: #fefefe;
+
+  --color-grad-start: var(--color-main-40);
+  --color-grad-end: var(--color-main-60);
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 @layer utilities {
