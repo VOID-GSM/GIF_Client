@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { CalendarModal } from "./CalendarModal";
-import { Cancle } from "@/shared/asset/svg/Cancle";
+import { useState, useRef, useEffect } from 'react';
+import { CalendarModal } from './CalendarModal';
+import { Cancel } from '@/shared/asset/svg/Cancel';
 
-const DAY_OF_WEEK = ["S", "M", "T", "W", "T", "F", "S"];
+const DAY_OF_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const ALL_MONTHS = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
 
 export interface Calendar_Modal {
@@ -20,7 +20,10 @@ export function Calendar() {
   const [viewDate, setViewDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [schedules, setSchedules] = useState<Calendar_Modal[]>([]);
-  const [range, setRange] = useState<{ start: Date | null; end: Date | null }>({ start: null, end: null });
+  const [range, setRange] = useState<{ start: Date | null; end: Date | null }>({
+    start: null,
+    end: null,
+  });
 
   const gapDate = (num: number) => String(num).padStart(2, '0');
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -45,15 +48,15 @@ export function Calendar() {
         startDate: range.start,
         endDate: range.end,
         title,
-        color
+        color,
       };
       setSchedules([...schedules, newSchedule]);
-      setRange({ start: null, end: null});
+      setRange({ start: null, end: null });
     }
   };
 
   const deleteSchedule = (id: number) => {
-    setSchedules(schedules.filter(s => s.id !== id));
+    setSchedules(schedules.filter((s) => s.id !== id));
   };
 
   const getDays = () => {
@@ -74,12 +77,12 @@ export function Calendar() {
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     };
   }, [isModalOpen]);
 
@@ -89,9 +92,9 @@ export function Calendar() {
       if (activeButton) {
         const parent = scrollRef.current;
         const child = activeButton as HTMLElement;
-        
+
         const scrollLeft = child.offsetLeft - parent.offsetWidth / 2 + child.offsetWidth / 2;
-        parent.scrollTo({ left: scrollLeft, behavior: "smooth" });
+        parent.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       }
     }
   }, [viewDate]);
@@ -114,7 +117,10 @@ export function Calendar() {
                 key={m}
                 data-active={isCurrent}
                 onClick={() => setViewDate(new Date(viewDate.getFullYear(), idx, 1))}
-                className={`flex-shrink-0 text-sm cursor-pointer ${isCurrent ? "scale-110 bg-black text-white rounded-full px-3 py-1" : "text-gray-80 font-medium"
+                className={`flex-shrink-0 text-sm cursor-pointer ${
+                  isCurrent
+                    ? 'scale-110 bg-black text-white rounded-full px-3 py-1'
+                    : 'text-gray-80 font-medium'
                 }`}
               >
                 {m}
@@ -125,43 +131,45 @@ export function Calendar() {
       </div>
 
       <div className="grid grid-cols-7 text-center font-bold text-main     ">
-        {DAY_OF_WEEK.map((name, i) => <span key={i}>{name}</span>)}
+        {DAY_OF_WEEK.map((name, i) => (
+          <span key={i}>{name}</span>
+        ))}
       </div>
 
       <div className="grid grid-cols-7 gap-y-1 ">
         {getDays().map((item, index) => {
-          const isSelected = item.fullDate && (
-            (range.start?.toDateString() === item.fullDate.toDateString()) ||
-            (range.end?.toDateString() === item.fullDate.toDateString()) ||
-            (range.start && range.end && item.fullDate > range.start && item.fullDate < range.end)
-          );
+          const isSelected =
+            item.fullDate &&
+            (range.start?.toDateString() === item.fullDate.toDateString() ||
+              range.end?.toDateString() === item.fullDate.toDateString() ||
+              (range.start &&
+                range.end &&
+                item.fullDate > range.start &&
+                item.fullDate < range.end));
 
-          const isToday = item.fullDate && item.fullDate.toDateString() === today.toDateString()
+          const isToday = item.fullDate && item.fullDate.toDateString() === today.toDateString();
 
           return (
-            <div 
-              key={index}
-              className="flex items-center justify-center h-10"
-            >
+            <div key={index} className="flex items-center justify-center h-10">
               {item.day && (
                 <button
                   onClick={() => item.fullDate && handleClick(item.fullDate)}
                   className={`w-12 h-8 rounded-2xl pt-1 cursor-pointer
-                    ${isSelected ? "bg-main text-white" : "" } 
-                    ${!isSelected && isToday ? "text-main font-bold border" : ""}`}
+                    ${isSelected ? 'bg-main text-white' : ''} 
+                    ${!isSelected && isToday ? 'text-main font-bold border' : ''}`}
                 >
                   {item.day}
-                  <div className="flex justify-center gap-1 mt-1 b absolute left-0 right-0 relative">
-                    {schedules.map(s => {
+                  <div className="flex justify-center gap-1 mt-1 absolute left-0 right-0 relative">
+                    {schedules.map((s) => {
                       if (!item.fullDate) return null;
 
-                      const d = new Date(item.fullDate).setHours(0,0,0,0);
-                      const start = new Date(s.startDate).setHours(0,0,0,0);
-                      const end = new Date(s.endDate).setHours(0,0,0,0);
+                      const d = new Date(item.fullDate).setHours(0, 0, 0, 0);
+                      const start = new Date(s.startDate).setHours(0, 0, 0, 0);
+                      const end = new Date(s.endDate).setHours(0, 0, 0, 0);
 
                       if (d >= start && d <= end) {
                         return (
-                          <div 
+                          <div
                             key={s.id}
                             className="w-2 h-2 rounded-full"
                             style={{ backgroundColor: s.color }}
@@ -174,17 +182,23 @@ export function Calendar() {
                 </button>
               )}
             </div>
-          )
+          );
         })}
       </div>
 
       <div>
         <p className="my-2 font-bold">등록된 일정 ({schedules.length})</p>
         <div className="flex flex-col gap-2">
-          {schedules.map(s => (
-            <div key={s.id} className="flex items-center justify-between py-2 px-3 rounded-lg group bg-white">
+          {schedules.map((s) => (
+            <div
+              key={s.id}
+              className="flex items-center justify-between py-2 px-3 rounded-lg group bg-white"
+            >
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full mx-2" style={{ backgroundColor: s.color }}></div>
+                <div
+                  className="w-3 h-3 rounded-full mx-2"
+                  style={{ backgroundColor: s.color }}
+                ></div>
                 <div>
                   <p>{s.title}</p>
                   <p>
@@ -192,26 +206,23 @@ export function Calendar() {
                   </p>
                 </div>
               </div>
-              <button 
-                onClick={() => deleteSchedule(s.id)}
-                className="cursor-pointer mx-2"
-              >
-                <Cancle />
+              <button onClick={() => deleteSchedule(s.id)} className="cursor-pointer mx-2">
+                <Cancel />
               </button>
             </div>
           ))}
         </div>
       </div>
 
-      <CalendarModal 
+      <CalendarModal
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
-          setRange({ start: null, end: null});
+          setRange({ start: null, end: null });
         }}
         range={range}
         onAdd={addSchedule}
       />
     </div>
   );
-};
+}

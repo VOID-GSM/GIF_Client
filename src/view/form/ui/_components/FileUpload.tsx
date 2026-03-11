@@ -1,9 +1,9 @@
 'use client';
-import { useDropzone } from "react-dropzone";
-import { Upload } from "@/shared/asset/svg/Upload";
-import { Cancle } from "@/shared/asset/svg/Cancle";
-import { useCallback, useState } from "react";
-import { UploadFile } from "@/shared/asset/svg/UploadFile";
+import { useDropzone } from 'react-dropzone';
+import { Upload } from '@/shared/asset/svg/Upload';
+import { Cancle } from '@/shared/asset/svg/Cancel';
+import { useCallback, useState } from 'react';
+import { UploadFile } from '@/shared/asset/svg/UploadFile';
 
 export function FileUpload() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -15,7 +15,7 @@ export function FileUpload() {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const deletedFile = (fileName: string) => {
-    setUploadedFiles(uploadedFiles.filter(file => file.name !== fileName));
+    setUploadedFiles(uploadedFiles.filter((file) => file.name !== fileName));
   };
 
   const formatBytes = (bytes: number) => {
@@ -27,15 +27,13 @@ export function FileUpload() {
   };
 
   return (
-    <div
-      className="bg-main-card w-full mt-[27px]"
-    >
+    <div className="bg-main-card w-full mt-[27px]">
       {uploadedFiles.length === 0 ? (
         <section className="border-dashed border-2 border-gray-50 rounded-[10px]">
           <div
-          {...getRootProps(
-            {className: "flex flex-col items-center text-center p-[30px] cursor-pointer"}
-          )}
+            {...getRootProps({
+              className: 'flex flex-col items-center text-center p-[30px] cursor-pointer',
+            })}
           >
             <input {...getInputProps()} />
             <Upload />
@@ -57,10 +55,7 @@ export function FileUpload() {
                 </div>
               </div>
 
-              <button
-                onClick={() => deletedFile(file.name)}
-                className="cursor-pointer"
-              >
+              <button onClick={() => deletedFile(file.name)} className="cursor-pointer">
                 <Cancle />
               </button>
             </div>

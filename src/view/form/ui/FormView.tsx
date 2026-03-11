@@ -19,7 +19,7 @@ export default function FormPage() {
             bg-white rounded-[10px] 
             px-[15px] py-[14px] mt-[15px] 
             placeholder:text-gray-40
-            focus:border-main-60 focus:outline-none
+            focus:border-main focus:outline-none
             resize-none"
         />
       </FormSection>
@@ -35,7 +35,7 @@ export default function FormPage() {
             bg-white rounded-[10px] 
             px-[15px] py-[14px] mt-[15px] 
             placeholder:text-gray-40
-            focus:border-main-60 focus:outline-none
+            focus:border-main focus:outline-none
             resize-none"
         />
       </FormSection>

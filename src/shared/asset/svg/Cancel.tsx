@@ -1,4 +1,4 @@
-export function Cancle() {
+export function Cancel() {
   return (
     <svg
       width="14"

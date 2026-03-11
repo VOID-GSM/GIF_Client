@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Cancle } from "@/shared/asset/svg/Cancle";
+import { useState } from 'react';
+import { Cancel } from '@/shared/asset/svg/Cancel';
 
 interface CalendarModalProps {
   isOpen: boolean;
@@ -10,10 +10,10 @@ interface CalendarModalProps {
   onAdd: (title: string, color: string) => void;
 }
 
-const COLORS = ["#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#A0C4FF", "#BDB2FF"];
+const COLORS = ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF', '#A0C4FF', '#BDB2FF'];
 
 export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalProps) {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
 
   if (!isOpen || !range.start) return null;
@@ -23,7 +23,7 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
 
   const handleAdd = () => {
     onAdd(title, selectedColor);
-    setTitle("");
+    setTitle('');
     onClose();
   };
 
@@ -32,11 +32,8 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
       <div className="bg-white p-6 rounded-lg w-full max-w-sm flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-lg">일정 추가</h2>
-          <button 
-            onClick={onClose}
-            className="cursor-pointer"
-          >
-            <Cancle />
+          <button onClick={onClose} className="cursor-pointer">
+            <Cancel />
           </button>
         </div>
 
@@ -46,7 +43,7 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
 
         <div className="flex flex-col gap-2">
           <span>일정 이름</span>
-          <input 
+          <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -58,12 +55,12 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
         <div className="flex flex-col gap-2">
           <span>색상</span>
           <div className="flex justify-between">
-            {COLORS.map(color => (
-              <button 
+            {COLORS.map((color) => (
+              <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full transition-transform cursor-pointer ${selectedColor === color ? "scale-120 ring-2 ring-offset-1 ring-gray-100" : ""}`}
-                style={{ backgroundColor: color}}
+                className={`w-6 h-6 rounded-full transition-transform cursor-pointer ${selectedColor === color ? 'scale-120 ring-2 ring-offset-1 ring-gray-100' : ''}`}
+                style={{ backgroundColor: color }}
               />
             ))}
           </div>
