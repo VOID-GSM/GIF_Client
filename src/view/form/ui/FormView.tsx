@@ -2,12 +2,15 @@ import { FormSection } from "./_components/formSection";
 import { FileUpload } from "./_components/FileUpload";
 import { Calendar } from "@/features/Calendar/ui/Calendar";
 
-export default function FormPage() {
+interface FormViewProps {
+  deadLine?: string;
+}
+
+export default function FormView({ deadLine }: FormViewProps) {
   return (
     <div className="w-[600px] mx-auto h-auto px-[50px] py-[70px] bg-input">
       <h2 className="font-semibold text-2xl text-center mb-5">결과 보고서 제출</h2>
-      {/* 나중에 다른 페이지에서 가져올 예정 */}
-      <p className="mb-[6px] text-gray-40 font-medium">마감일:</p>
+      <p className="mb-[6px] text-gray-40 font-medium">마감일: {deadLine || "불러오는 중..."} </p>
       <FormSection
         title="프로젝트 이름"
         description="프로젝트 이름을 작성해 주세요"
