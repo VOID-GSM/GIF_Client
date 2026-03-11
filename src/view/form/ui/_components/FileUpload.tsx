@@ -14,7 +14,7 @@ export function FileUpload() {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const deletedFile = (fileName: string) => {
+  const deleteFile = (fileName: string) => {
     setUploadedFiles(uploadedFiles.filter(file => file.name !== fileName));
   };
 
