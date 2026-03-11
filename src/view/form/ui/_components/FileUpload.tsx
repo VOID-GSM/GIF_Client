@@ -12,7 +12,14 @@ export function FileUpload() {
     setUploadedFiles(acceptedFiles);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ 
+    onDrop: (acceptedFiles: File[]) => {
+      if (acceptedFiles.length > 0) {
+        setUploadedFiles([acceptedFiles[0]]);
+      }
+    },
+    multiple: false
+  });
 
   const deletedFile = (fileName: string) => {
     setUploadedFiles(uploadedFiles.filter((file) => file.name !== fileName));
