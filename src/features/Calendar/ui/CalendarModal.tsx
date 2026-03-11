@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Cancle } from "@/shared/asset/svg/Cancle";
-import Button from "@/shared/ui/button/Button";
 
 interface CalendarModalProps {
   isOpen: boolean;
