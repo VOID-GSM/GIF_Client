@@ -1,7 +1,7 @@
 'use client';
 import { useDropzone } from 'react-dropzone';
 import { Upload } from '@/shared/asset/svg/Upload';
-import { Cancle } from '@/shared/asset/svg/Cancel';
+import { Cancel } from '@/shared/asset/svg/Cancel';
 import { useCallback, useState } from 'react';
 import { UploadFile } from '@/shared/asset/svg/UploadFile';
 
@@ -56,7 +56,7 @@ export function FileUpload() {
               </div>
 
               <button onClick={() => deletedFile(file.name)} className="cursor-pointer">
-                <Cancle />
+                <Cancel />
               </button>
             </div>
           ))}
