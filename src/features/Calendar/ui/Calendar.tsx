@@ -152,14 +152,24 @@ export function Calendar() {
                 >
                   {item.day}
                   <div className="flex justify-center gap-1 mt-1 b absolute left-0 right-0 relative">
-                    {schedules.map(s => (
-                      item.fullDate && item.fullDate >= s.startDate && item.fullDate <= s.startDate &&
-                      <div 
-                        key={s.id}
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: s.color }}
-                      />
-                    ))}
+                    {schedules.map(s => {
+                      if (!item.fullDate) return null;
+
+                      const d = new Date(item.fullDate).setHours(0,0,0,0);
+                      const start = new Date(s.startDate).setHours(0,0,0,0);
+                      const end = new Date(s.endDate).setHours(0,0,0,0);
+
+                      if (d >= start && d <= end) {
+                        return (
+                          <div 
+                            key={s.id}
+                            className="w-2 h-2 rounded-full"
+                            style={{ backgroundColor: s.color }}
+                          />
+                        );
+                      }
+                      return null;
+                    })}
                   </div>
                 </button>
               )}
