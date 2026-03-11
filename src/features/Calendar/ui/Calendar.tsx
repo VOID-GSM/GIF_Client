@@ -130,7 +130,7 @@ export function Calendar() {
       <div className="relative">
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto gap-6 no-scrollbar scroll-smooth py-2 px-45"
+          className="flex overflow-x-auto gap-6 no-scrollbar scrollbar-hide scroll-smooth py-2 px-45"
         >
           {ALL_MONTHS.map((m, idx) => {
             const isCurrent = viewDate.getMonth() === idx;
@@ -152,7 +152,7 @@ export function Calendar() {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 text-center font-bold text-main     ">
+      <div className="grid grid-cols-7 text-center font-bold text-main">
         {DAY_OF_WEEK.map((name, i) => (
           <span key={i}>{name}</span>
         ))}
