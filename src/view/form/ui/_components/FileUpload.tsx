@@ -2,15 +2,11 @@
 import { useDropzone } from 'react-dropzone';
 import { Upload } from '@/shared/asset/svg/Upload';
 import { Cancel } from '@/shared/asset/svg/Cancel';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { UploadFile } from '@/shared/asset/svg/UploadFile';
 
 export function FileUpload() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    setUploadedFiles(acceptedFiles);
-  }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ 
     onDrop: (acceptedFiles: File[]) => {
