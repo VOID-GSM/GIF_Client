@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { CalendarModal } from './CalendarModal';
 import { Cancel } from '@/shared/asset/svg/Cancel';
 
@@ -99,6 +99,28 @@ export function Calendar() {
     }
   }, [viewDate]);
 
+  const scheduleMap = useMemo(() => {
+    const map: Record<string, Calendar_Modal[]> = {};
+
+    schedules.forEach((s) => {
+      const start = new Date(s.startDate);
+      const end = new Date(s.endDate);
+      
+      const current = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      const last = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+
+      while (current <= last) {
+        const dateKey = current.toDateString();
+        if (!map[dateKey]) map[dateKey] = [];
+        map[dateKey].push(s);
+        
+        current.setDate(current.getDate() + 1);
+      }
+    });
+
+    return map;
+  }, [schedules]);
+
   return (
     <div className="flex flex-col gap-2">
       <div className="text-center font-bold">
@@ -148,6 +170,7 @@ export function Calendar() {
                 item.fullDate < range.end));
 
           const isToday = item.fullDate && item.fullDate.toDateString() === today.toDateString();
+          const dateKey = item.fullDate?.toDateString();
 
           return (
             <div key={index} className="flex items-center justify-center h-10">
@@ -160,24 +183,13 @@ export function Calendar() {
                 >
                   {item.day}
                   <div className="flex justify-center gap-1 mt-1 absolute left-0 right-0 relative">
-                    {schedules.map((s) => {
-                      if (!item.fullDate) return null;
-
-                      const d = new Date(item.fullDate).setHours(0, 0, 0, 0);
-                      const start = new Date(s.startDate).setHours(0, 0, 0, 0);
-                      const end = new Date(s.endDate).setHours(0, 0, 0, 0);
-
-                      if (d >= start && d <= end) {
-                        return (
-                          <div
-                            key={s.id}
-                            className="w-2 h-2 rounded-full"
-                            style={{ backgroundColor: s.color }}
-                          />
-                        );
-                      }
-                      return null;
-                    })}
+                    {dateKey && scheduleMap[dateKey]?.map((s) => (
+                      <div
+                        key={s.id}
+                        className="w-2.5 h-2.5 rounded-full"
+                        style={{ backgroundColor: s.color }}
+                      />
+                    ))}
                   </div>
                 </button>
               )}
