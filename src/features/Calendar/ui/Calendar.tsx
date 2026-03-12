@@ -59,7 +59,7 @@ export function Calendar() {
     setSchedules(schedules.filter((s) => s.id !== id));
   };
 
-  const getDays = () => {
+  const days = useMemo(() => {
     const year = viewDate.getFullYear();
     const month = viewDate.getMonth();
     const fristDayIndex = new Date(year, month, 1).getDay();
@@ -73,7 +73,7 @@ export function Calendar() {
       days.push({ day: d, fullDate: new Date(year, month, d) });
     }
     return days;
-  };
+  }, [viewDate]);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -103,8 +103,8 @@ export function Calendar() {
     const map: Record<string, CalendarSchedule[]> = {};
 
     schedules.forEach((s) => {
-      const start = new Date(s.startDate);
-      const end = new Date(s.endDate);
+      const start = s.startDate
+      const end = s.endDate
       
       const current = new Date(start.getFullYear(), start.getMonth(), start.getDate());
       const last = new Date(end.getFullYear(), end.getMonth(), end.getDate());
@@ -159,7 +159,7 @@ export function Calendar() {
       </div>
 
       <div className="grid grid-cols-7 gap-y-1 ">
-        {getDays().map((item, index) => {
+        {days.map((item, index) => {
           const isSelected =
             item.fullDate &&
             (range.start?.toDateString() === item.fullDate.toDateString() ||
