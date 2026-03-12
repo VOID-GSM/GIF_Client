@@ -6,19 +6,19 @@ import { useState } from 'react';
 import { UploadFile } from '@/shared/asset/svg/UploadFile';
 
 export function FileUpload() {
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const { getRootProps, getInputProps } = useDropzone({ 
     onDrop: (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
-        setUploadedFiles([acceptedFiles[0]]);
+        setUploadedFile(acceptedFiles[0]);
       }
     },
     multiple: false
   });
 
-  const deletedFile = (fileName: string) => {
-    setUploadedFiles(uploadedFiles.filter((file) => file.name !== fileName));
+  const deletedFile = () => {
+    setUploadedFile(null);
   };
 
   const formatBytes = (bytes: number) => {
@@ -31,7 +31,7 @@ export function FileUpload() {
 
   return (
     <div className="bg-main-card w-full mt-[27px]">
-      {uploadedFiles.length === 0 ? (
+      {!uploadedFile ? (
         <section className="border-dashed border-2 border-gray-50 rounded-[10px]">
           <div
             {...getRootProps({
@@ -47,26 +47,23 @@ export function FileUpload() {
         </section>
       ) : (
         <div className="mt-7 flex flex-col gap-3 bg-white">
-          {uploadedFiles.map((file) => (
-            <div
-              key={file.name}
-              className="flex items-center justify-between border border-gray-70  px-8 py-4 w-full bg-white rounded-[10px]"
-            >
-              <div className="flex items-center gap-4">
-                <div className='text-main'>
-                  <UploadFile />
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-gray-0c font-bold text-sm">{file.name}</span>
-                  <span className="text-gray-40 text-sm">{formatBytes(file.size)}</span>
-                </div>
+          <div
+            className="flex items-center justify-between border border-gray-70 px-8 py-4 w-full bg-white rounded-[10px]"
+          >
+            <div className="flex items-center gap-4">
+              <div className='text-main'>
+                <UploadFile />
               </div>
-
-              <button onClick={() => deletedFile(file.name)} className="cursor-pointer">
-                <Cancel />
-              </button>
+              <div className="flex flex-col text-left">
+                <span className="text-gray-0c font-bold text-sm">{uploadedFile.name}</span>
+                <span className="text-gray-40 text-sm">{formatBytes(uploadedFile.size)}</span>
+              </div>
             </div>
-          ))}
+
+            <button onClick={deletedFile} className="cursor-pointer">
+              <Cancel />
+            </button>
+          </div>
         </div>
       )}
     </div>
