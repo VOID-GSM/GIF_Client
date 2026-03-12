@@ -22,6 +22,7 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
     `${date.getFullYear()}. ${String(date.getMonth() + 1).padStart(2, '0')}. ${String(date.getDate()).padStart(2, '0')}`;
 
   const handleAdd = () => {
+    if (!title.trim()) return;  
     onAdd(title, selectedColor);
     setTitle('');
     onClose();
