@@ -8,7 +8,7 @@ interface FormViewProps {
 
 export default function FormView({ deadLine }: FormViewProps) {
   return (
-    <div className="w-[600px] mx-auto h-auto px-[50px] py-[70px] bg-input">
+    <div className="w-[600px] mx-auto min-h-full h-fit px-[50px] py-[70px] bg-input">
       <h2 className="font-semibold text-2xl text-center mb-5">결과 보고서 제출</h2>
       <p className="mb-[6px] text-gray-40 font-medium">마감일: {deadLine || "불러오는 중..."} </p>
       <FormSection
@@ -56,7 +56,7 @@ export default function FormView({ deadLine }: FormViewProps) {
         <Calendar />
       </FormSection>
 
-      <div className="flex flex-col gap-5 mt-[20px] text-xl font-medium">
+      <div className="flex flex-col gap-5 mt-[20px] pb-[50px] text-xl font-medium">
         <button 
           type="submit"
           className="bg-main text-white h-[45px] rounded-[10px] cursor-pointer"
