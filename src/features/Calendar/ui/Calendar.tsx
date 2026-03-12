@@ -130,7 +130,7 @@ export function Calendar() {
       <div className="relative">
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto gap-6 no-scrollbar scrollbar-hide scroll-smooth py-2 px-45"
+          className="flex overflow-x-auto gap-6 no-scrollbar scrollbar-hide scroll-smooth py-2 p-[180px]"
         >
           {ALL_MONTHS.map((m, idx) => {
             const isCurrent = viewDate.getMonth() === idx;
@@ -182,12 +182,11 @@ export function Calendar() {
                     ${!isSelected && isToday ? 'text-main font-bold border' : ''}`}
                 >
                   {item.day}
-                  <div className="flex justify-center gap-1 mt-1 absolute left-0 right-0 relative">
+                  <div className="flex justify-center gap-1 mt-1">
                     {dateKey && scheduleMap[dateKey]?.map((s) => (
                       <div
                         key={s.id}
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ backgroundColor: s.color }}
+                        className={`w-2.5 h-2.5 rounded-full ${s.color}`}
                       />
                     ))}
                   </div>
@@ -208,8 +207,7 @@ export function Calendar() {
             >
               <div className="flex items-center gap-2">
                 <div
-                  className="w-3 h-3 rounded-full mx-2"
-                  style={{ backgroundColor: s.color }}
+                  className={`w-3 h-3 rounded-full mx-2 ${s.color}`}
                 ></div>
                 <div>
                   <p>{s.title}</p>
