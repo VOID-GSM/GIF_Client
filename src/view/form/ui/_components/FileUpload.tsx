@@ -39,7 +39,9 @@ export function FileUpload() {
             })}
           >
             <input {...getInputProps()} />
-            <Upload />
+            <div className='text-gray-40'>
+              <Upload />
+            </div>
             <p className="text-gray-50 mt-6">클릭하거나 파일을 드래그하여 업로드</p>
           </div>
         </section>
@@ -48,12 +50,14 @@ export function FileUpload() {
           {uploadedFiles.map((file) => (
             <div
               key={file.name}
-              className="flex items-center justify-between border border-gray-70 rounded-3 px-8 py-4 w-full bg-white rounded-[10px]"
+              className="flex items-center justify-between border border-gray-70  px-8 py-4 w-full bg-white rounded-[10px]"
             >
               <div className="flex items-center gap-4">
-                <UploadFile />
+                <div className='text-main'>
+                  <UploadFile />
+                </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-black font-bold text-sm">{file.name}</span>
+                  <span className="text-gray-0c font-bold text-sm">{file.name}</span>
                   <span className="text-gray-40 text-sm">{formatBytes(file.size)}</span>
                 </div>
               </div>
