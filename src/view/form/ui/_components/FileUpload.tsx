@@ -55,7 +55,7 @@ export function FileUpload() {
                 <UploadFile />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-gray-0c font-bold text-sm">{uploadedFile.name}</span>
+                <span className="text-gray-0 font-bold text-sm">{uploadedFile.name}</span>
                 <span className="text-gray-40 text-sm">{formatBytes(uploadedFile.size)}</span>
               </div>
             </div>
