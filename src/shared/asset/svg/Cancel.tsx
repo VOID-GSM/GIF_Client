@@ -9,13 +9,13 @@ export function Cancel() {
     >
       <path 
         d="M3.51685 2.5L52.5 52.4997" 
-        stroke="black" 
+        stroke="currentColor" 
         strokeWidth="5" 
         strokeLinecap="round"
       />
       <path 
         d="M51.4832 2.5L2.49998 52.4997" 
-        stroke="black" 
+        stroke="currentColor" 
         strokeWidth="5" 
         strokeLinecap="round"
       />
