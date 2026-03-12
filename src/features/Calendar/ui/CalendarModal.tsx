@@ -10,7 +10,15 @@ interface CalendarModalProps {
   onAdd: (title: string, color: string) => void;
 }
 
-const COLORS = ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF', '#A0C4FF', '#BDB2FF'];
+const COLORS = [
+  'bg-pastel-red',
+  'bg-pastel-orange',
+  'bg-pastel-yellow',
+  'bg-pastel-green',
+  'bg-pastel-cyan',
+  'bg-pastel-blue',
+  'bg-pastel-purple'
+];
 
 export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalProps) {
   const [title, setTitle] = useState('');
@@ -49,7 +57,7 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="예: 계획서 제출"
-            className="bg-main-card px-4 py-3 rounded-lg focus:ring-2 focus:ring-main-60 outline-none"
+            className="bg-main-card px-4 py-3 rounded-lg focus:ring-2 focus:ring-main outline-none"
           />
         </div>
 
@@ -60,8 +68,9 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full transition-transform cursor-pointer ${selectedColor === color ? 'scale-120 ring-2 ring-offset-1 ring-gray-100' : ''}`}
-                style={{ backgroundColor: color }}
+                className={`w-6 h-6 rounded-full transition-transform cursor-pointer 
+                  ${color}
+                  ${selectedColor === color ? 'scale-120 ring-2 ring-offset-1 ring-gray-100' : ''}`}
               />
             ))}
           </div>
