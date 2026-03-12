@@ -33,8 +33,16 @@
   --color-high-emphasis: #ededed;
   --color-input: #fefefe;
 
-  --color-grad-start: var(--color-main-40);
-  --color-grad-end: var(--color-main-60);
+  --color-grad-start: var(--color-green-50);
+  --color-grad-end: var(--color-main);
+
+  --color-pastel-red: #FFADAD;
+  --color-pastel-orange: #FFD6A5;
+  --color-pastel-yellow: #FDFFB6;
+  --color-pastel-green: #CAFFBF;
+  --color-pastel-cyan: #9BF6FF;
+  --color-pastel-blue: #A0C4FF;
+  --color-pastel-purple: #BDB2FF;
 }
 
 @layer utilities {
@@ -49,4 +57,10 @@
 
 body {
   font-family: var(--font-family-sans);
+}
+
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
 }
