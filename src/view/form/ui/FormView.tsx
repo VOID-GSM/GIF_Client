@@ -8,7 +8,10 @@ interface FormViewProps {
 
 export default function FormView({ deadLine }: FormViewProps) {
   return (
-    <div className="w-[600px] mx-auto min-h-full h-fit px-[50px] py-[70px] bg-input">
+    <div 
+      className="w-[600px] mx-auto min-h-full h-fit px-[50px] 
+        py-[70px] bg-input overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+    >
       <h2 className="font-semibold text-2xl text-center mb-5">결과 보고서 제출</h2>
       <p className="mb-[6px] text-gray-40 font-medium">마감일: {deadLine || "불러오는 중..."} </p>
       <FormSection

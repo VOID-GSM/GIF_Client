@@ -52,15 +52,10 @@
   .scrollbar-hide {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+
   }
 }
 
 body {
   font-family: var(--font-family-sans);
-}
-
-@layer base {
-  html {
-    scrollbar-gutter: stable;
-  }
 }

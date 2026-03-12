@@ -37,7 +37,7 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
   };
 
   return (
-    <div className="fixed inset-0 flex z-50 items-center justify-center bg-black/40 p-4">
+    <div className="fixed inset-0 flex z-50 items-center justify-center bg-black/40">
       <div className="bg-white p-6 rounded-lg w-full max-w-sm flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-lg">일정 추가</h2>
