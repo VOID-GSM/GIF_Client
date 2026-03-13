@@ -1,5 +1,5 @@
-import { FormSection } from "./_components/formSection";
-import { FileUpload } from "./_components/FileUpload";
+import { FormSection } from "../../../widget/form/ui/formSection";
+import { FileUpload } from "../../../widget/form/ui/FileUpload";
 import { Calendar } from "@/features/Calendar/ui/Calendar";
 
 interface FormViewProps {

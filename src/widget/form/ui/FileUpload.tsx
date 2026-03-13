@@ -5,6 +5,14 @@ import { Cancel } from '@/shared/asset/svg/Cancel';
 import { useState } from 'react';
 import { UploadFile } from '@/shared/asset/svg/UploadFile';
 
+const formatBytes = (bytes: number) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + sizes[i];
+};
+
 export function FileUpload() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
@@ -17,16 +25,8 @@ export function FileUpload() {
     multiple: false
   });
 
-  const deletedFile = () => {
+  const deleteFile = () => {
     setUploadedFile(null);
-  };
-
-  const formatBytes = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + sizes[i];
   };
 
   return (
@@ -60,7 +60,7 @@ export function FileUpload() {
               </div>
             </div>
 
-            <button onClick={deletedFile} className="cursor-pointer">
+            <button onClick={deleteFile} className="cursor-pointer">
               <Cancel />
             </button>
           </div>
