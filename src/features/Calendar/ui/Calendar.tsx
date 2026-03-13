@@ -16,7 +16,7 @@ export interface CalendarSchedule {
 }
 
 export function Calendar() {
-  const today = new Date();
+  const today = useMemo(() => new Date(), []);
   const [viewDate, setViewDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [schedules, setSchedules] = useState<CalendarSchedule[]>([]);
@@ -124,7 +124,7 @@ export function Calendar() {
   return (
     <div className="flex flex-col gap-2">
       <div className="text-center font-bold">
-        {`${viewDate.getFullYear()}. ${gapDate(viewDate.getMonth() + 1)}. ${gapDate(viewDate.getDate())}`}
+        {`${viewDate.getFullYear()}. ${gapDate(viewDate.getMonth() + 1)}.`}
       </div>
 
       <div className="relative">
