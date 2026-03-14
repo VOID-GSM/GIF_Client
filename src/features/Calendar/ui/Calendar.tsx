@@ -15,7 +15,11 @@ export interface CalendarSchedule {
   color: string;
 }
 
-export function Calendar() {
+interface CalendarProps {
+  onChange?: (isDone: boolean) => void
+}
+
+export function Calendar({ onChange }: CalendarProps) {
   const today = useMemo(() => new Date(), []);
   const [viewDate, setViewDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,6 +78,12 @@ export function Calendar() {
     }
     return days;
   }, [viewDate]);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(schedules.length > 0);
+    }
+  }, [schedules, onChange]);
 
   useEffect(() => {
     if (isModalOpen) {

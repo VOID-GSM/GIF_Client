@@ -1,12 +1,21 @@
+"use client";
+
 import { FormSection } from "../../../widget/form/ui/formSection";
 import { FileUpload } from "../../../widget/form/ui/FileUpload";
 import { Calendar } from "@/features/Calendar/ui/Calendar";
+import Button from "@/shared/ui/button/Button";
+import { useState } from "react";
 
 interface FormViewProps {
   deadLine?: string;
 }
 
 export default function FormView({ deadLine }: FormViewProps) {
+  const [projectName, setProjectName] = useState("");
+  const [projectSummary, setProjectSummary] = useState("");
+  const [isCalendarDone, setIsCalendarDone] = useState(false);
+  const isActive = projectName.trim() !== "" && projectSummary.trim() !== "" && isCalendarDone;
+
   return (
     <div 
       className="w-[600px] mx-auto min-h-full h-fit px-[50px] 
@@ -19,6 +28,8 @@ export default function FormView({ deadLine }: FormViewProps) {
         description="프로젝트 이름을 작성해 주세요"
       >
         <textarea
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
           placeholder="설명을 입력하세요"
           className="w-full h-[100px]
             border border-gray-80 
@@ -35,6 +46,8 @@ export default function FormView({ deadLine }: FormViewProps) {
         description="프로젝트 개요를 작성해 주세요"
       >
         <textarea
+          value={projectSummary}
+          onChange={(e) => setProjectSummary(e.target.value)}
           placeholder="설명을 입력하세요"
           className="w-full h-[100px] 
             border border-gray-80
@@ -56,21 +69,17 @@ export default function FormView({ deadLine }: FormViewProps) {
         title="프로젝트 추진 일정"
         description="아이디어 계획서, 재료 신청, 프로젝트 기능 구현을 추가해 주세요"
       >
-        <Calendar />
+        <Calendar onChange={(done: boolean) => setIsCalendarDone(done)}/>
       </FormSection>
 
       <div className="flex flex-col gap-5 mt-[20px] pb-[50px] text-xl font-medium">
-        <button 
-          type="submit"
-          className="bg-main text-white h-[45px] rounded-[10px] cursor-pointer"
-        >
+        <Button type="submit" disabled={!isActive}>
           제출하기
-        </button>
+        </Button>
         
-        <button 
-          type="button"
-          className="bg-gray-100 h-[45px] rounded-[10px] cursor-pointer"
-        >취소하기</button>
+        <Button type="button" variant="sub">
+          취소하기
+        </Button>
       </div>
     </div>
   );

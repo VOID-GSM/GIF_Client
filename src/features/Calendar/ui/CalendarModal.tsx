@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Cancel } from '@/shared/asset/svg/Cancel';
+import Button from '@/shared/ui/button/Button';
 
 interface CalendarModalProps {
   isOpen: boolean;
@@ -83,12 +84,9 @@ export function CalendarModal({ isOpen, onClose, range, onAdd }: CalendarModalPr
           </div>
         </div>
 
-        <button
-          onClick={handleAdd}
-          className="bg-main font-bold text-white py-3 rounded-lg cursor-pointer mt-2"
-        >
+        <Button type="submit" onClick={handleAdd} disabled={!title.trim()}>
           추가하기
-        </button>
+        </Button>
       </div>
     </div>
   );
