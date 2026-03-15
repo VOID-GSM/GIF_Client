@@ -16,7 +16,7 @@ export default function SignupView() {
   const isReady = name.trim() !== '' && studentId.trim() !== '' && role !== null;
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen bg-[#F7FFFC]">
+    <div className="flex items-center justify-center w-full min-h-screen bg-bg-main">
       <div className="w-125 h-112.5 flex flex-col items-center justify-center gap-10 bg-white border border-gray-80 rounded-[10px]">
         <Image src={Logo} alt="GIF LOGO" width={100} height={66} priority />
         <form className="flex flex-col gap-5">

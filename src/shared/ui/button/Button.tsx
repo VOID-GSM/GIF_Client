@@ -5,25 +5,29 @@ interface ButtonProps {
   height?: string;
   disabled?: boolean;
   onClick?: () => void;
+  variant?: 'main' | 'sub';
 }
 
 export default function Button({
   children,
   type = 'button',
   disabled = false,
-  width = 'w-100',
+  width = 'w-full',
   height = 'h-12.5',
+  variant = 'main',
   onClick,
 }: ButtonProps) {
   const base = 'rounded-[10px] text-2xl font-semibold';
 
-  const variant = disabled ? 'bg-[#E6E6E6] text-white' : 'bg-main-70 text-white cursor-pointer';
+  const variantStyle = disabled ? 'bg-gray-100 text-white' : variant === 'sub' 
+    ? 'bg-gray-100 cursor-pointer'
+    : 'bg-main text-white cursor-pointer';
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${base} ${variant} ${width} ${height}`}
+      className={`${base} ${variantStyle} ${width} ${height}`}
     >
       {children}
     </button>
