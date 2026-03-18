@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Input from '@/shared/ui/input/Input';
 import ProjectButton from '@/shared/ui/button/ProjectButton';
-import MemberSelect from './MemberSelect';
+import MemberSelect from '../../../features/MemberSelect/ui/MemberSelect';
 import Textarea from '@/shared/ui/input/Textarea';
 
 export default function ProjectSetup() {
