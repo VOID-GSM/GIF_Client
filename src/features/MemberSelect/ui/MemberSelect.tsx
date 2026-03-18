@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { MOCK_MEMBERS } from '../model/tempData';
 import Badge from '@/shared/ui/Badge';
 
@@ -42,7 +42,7 @@ export default function MemberSelect({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [selectRef]);
+  }, []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -53,12 +53,20 @@ export default function MemberSelect({
   }, [selectedMembers]);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const filteredMembers = MOCK_MEMBERS.filter(
-    (member) => !selectedMembers.some((m) => m.id === member.id),
-  ).filter((member) => {
-    if (searchTerm.trim() === '') return true;
-    return member.id.startsWith(searchTerm) || member.name.includes(searchTerm);
-  });
+  const filteredMembers = useMemo(() => {
+    const selectedIds = new Set(selectedMembers.map((m) => m.id));
+    const availableMembers = MOCK_MEMBERS.filter((member) => !selectedIds.has(member.id));
+    const trimmedSearchTerm = searchTerm.trim();
+    if (trimmedSearchTerm === '') {
+      return availableMembers;
+    }
+    const lowercasedSearchTerm = trimmedSearchTerm.toLowerCase();
+    return availableMembers.filter(
+      (member) =>
+        member.id.toLowerCase().startsWith(lowercasedSearchTerm) ||
+        member.name.toLowerCase().includes(lowercasedSearchTerm),
+    );
+  }, [selectedMembers, searchTerm]);
 
   const handleMemberClick = (member: { id: string; name: string }) => {
     if (!selectedMembers.find((m) => m.id === member.id)) {
