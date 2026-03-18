@@ -1,4 +1,4 @@
-import ProjectSetup from '@/features/projectSetup';
+import ProjectSetup from '@/view/projectSetup/ui/ProjectSetupView';
 
 export default function ProjectSetupPage() {
   return <ProjectSetup />;
