@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { MOCK_MEMBERS } from '../model/tempData';
 import Badge from '@/shared/ui/Badge';
+import { Member } from '@/entities/member/model/types';
 
 interface MemberItemProps {
   id: string;
@@ -12,8 +13,9 @@ interface MemberItemProps {
 
 interface MemberSelectProps {
   value: string;
-  selectedMembers: { id: string; name: string }[];
-  setSelectedMembers: React.Dispatch<React.SetStateAction<{ id: string; name: string }[]>>;
+  selectedMembers: Member[];
+  onAddMember: (member: Member) => void;
+  onRemoveMember: (id: string) => void;
 }
 
 function MemberItem({ id, name, onClick }: MemberItemProps) {
@@ -27,9 +29,11 @@ function MemberItem({ id, name, onClick }: MemberItemProps) {
 export default function MemberSelect({
   value,
   selectedMembers = [],
-  setSelectedMembers,
+  onAddMember,
+  onRemoveMember,
 }: MemberSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const selectRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -52,7 +56,6 @@ export default function MemberSelect({
     }
   }, [selectedMembers]);
 
-  const [searchTerm, setSearchTerm] = useState('');
   const filteredMembers = useMemo(() => {
     const selectedIds = new Set(selectedMembers.map((m) => m.id));
     const availableMembers = MOCK_MEMBERS.filter((member) => !selectedIds.has(member.id));
@@ -68,14 +71,14 @@ export default function MemberSelect({
     );
   }, [selectedMembers, searchTerm]);
 
-  const handleMemberClick = (member: { id: string; name: string }) => {
+  const handleMemberClick = (member: Member) => {
     if (!selectedMembers.find((m) => m.id === member.id)) {
-      setSelectedMembers((prev) => [...prev, member]);
+      onAddMember(member);
     }
   };
 
   const handleRemove = (id: string) => {
-    setSelectedMembers((prev) => prev.filter((m) => m.id !== id));
+    onRemoveMember(id);
   };
 
   return (

@@ -4,12 +4,24 @@ import Input from '@/shared/ui/input/Input';
 import ProjectButton from '@/shared/ui/button/ProjectButton';
 import MemberSelect from '@/features/MemberSelect/ui/MemberSelect';
 import Textarea from '@/shared/ui/input/Textarea';
+import { Member } from '@/entities/member/model/types';
 
 export default function ProjectSetup() {
   const [projectName, setProjectName] = useState('');
   const [teamName, setTeamName] = useState('');
-  const [selectedMembers, setSelectedMembers] = useState<{ id: string; name: string }[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<Member[]>([]);
   const [description, setDescription] = useState('');
+
+  const handleAddMember = (member: Member) => {
+    setSelectedMembers((prev) => {
+      if (prev.some((m) => m.id === member.id)) return prev;
+      return [...prev, member];
+    });
+  };
+
+  const handleRemoveMember = (id: string) => {
+    setSelectedMembers((prev) => prev.filter((member) => member.id !== id));
+  };
 
   const isFormValid =
     projectName.trim().length > 0 &&
@@ -35,7 +47,8 @@ export default function ProjectSetup() {
           <MemberSelect
             value="팀원을 추가하세요"
             selectedMembers={selectedMembers}
-            setSelectedMembers={setSelectedMembers}
+            onAddMember={handleAddMember}
+            onRemoveMember={handleRemoveMember}
           />
           <Textarea
             placeholder="프로젝트 설명을 입력해주세요"
