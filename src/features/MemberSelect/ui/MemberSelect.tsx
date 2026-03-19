@@ -77,10 +77,6 @@ export default function MemberSelect({
     }
   };
 
-  const handleRemove = (id: string) => {
-    onRemoveMember(id);
-  };
-
   return (
     <div className="relative w-[400px]" ref={selectRef}>
       <div
@@ -91,7 +87,7 @@ export default function MemberSelect({
       >
         {selectedMembers.length > 0 ? (
           selectedMembers.map((member) => (
-            <Badge key={member.id} id={member.id} name={member.name} onRemove={handleRemove} />
+            <Badge key={member.id} id={member.id} name={member.name} onRemove={onRemoveMember} />
           ))
         ) : (
           <span className="text-[#929292]">{value}</span>
