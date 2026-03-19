@@ -32,7 +32,7 @@ export default function ProjectSetup() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
       <form>
-        <p className="text-2xl font-medium mb-[68px]">프로젝트 생성</p>
+        <p className="flex justify-center text-2xl font-medium mb-[68px]">프로젝트 생성</p>
         <div className="flex flex-col gap-[30px] w-[400px]">
           <Input
             placeholder="프로젝트 이름을 입력하세요"
