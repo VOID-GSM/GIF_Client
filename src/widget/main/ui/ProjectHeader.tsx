@@ -1,0 +1,118 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import EditableField from '@/shared/ui/EditableField';
+import { Upload } from '@/shared/asset/svg/Upload';
+import { toast } from 'sonner';
+
+interface ProjectHeaderProps {
+  name: string;
+  teamName: string;
+  logoUrl?: string;
+  editable: boolean;
+  onUpdateName: (v: string) => void;
+  onUpdateTeamName: (v: string) => void;
+  onUpdateLogo: (file: File) => void;
+}
+
+export default function ProjectHeader({
+  name,
+  teamName,
+  logoUrl,
+  editable,
+  onUpdateName,
+  onUpdateTeamName,
+  onUpdateLogo,
+}: ProjectHeaderProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [previewUrl, setPreviewUrl] = useState(logoUrl);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
+  useEffect(() => {
+    setPreviewUrl(logoUrl);
+  }, [logoUrl]);
+
+  // ✅ 개선
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // 파일 크기 검증 (예: 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('이미지는 5MB 이하만 업로드 가능합니다.');
+      return;
+    }
+
+    // 파일 형식 검증
+    if (!file.type.startsWith('image/')) {
+      toast.error('이미지 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    setPreviewUrl(URL.createObjectURL(file));
+    onUpdateLogo(file);
+  };
+
+  const fields = [
+    {
+      value: name,
+      onSave: onUpdateName,
+      className: 'text-[40px] font-medium',
+      pencilSize: { width: '23', height: '32' },
+      wrapperClass: 'mb-[25px]',
+    },
+    {
+      value: teamName,
+      onSave: onUpdateTeamName,
+      className: 'text-2xl font-medium',
+      pencilSize: { width: '15', height: '20' },
+      wrapperClass: '',
+    },
+  ];
+
+  return (
+    <div className="flex flex-col">
+      <div className="relative w-[70px] h-[70px] mb-[40px]">
+        <button
+          onClick={() => editable && fileInputRef.current?.click()}
+          disabled={!editable}
+          className="relative w-full h-full rounded-[10px] overflow-hidden flex items-center justify-center bg-white outline outline-2 outline-gray-80"
+        >
+          {previewUrl ? (
+            <Image src={previewUrl} alt="프로젝트 로고" fill className="object-cover" />
+          ) : (
+            <Upload width="35" height="35" />
+          )}
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleLogoChange}
+        />
+      </div>
+
+      {/* 프로젝트명 / 팀명 */}
+      {fields.map(({ value, onSave, className, pencilSize, wrapperClass }, index) => (
+        <div key={index} className={wrapperClass}>
+          <EditableField
+            value={value}
+            onSave={onSave}
+            editable={editable}
+            className={className}
+            pencilSize={pencilSize}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
