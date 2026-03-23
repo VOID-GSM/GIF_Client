@@ -1,0 +1,154 @@
+'use client';
+
+import { useCallback, useEffect, useRef, useState, KeyboardEvent } from 'react';
+import PencilIcon from '@/shared/asset/svg/Pencil';
+import { toast } from 'sonner';
+
+interface EditableFieldProps {
+  value: string;
+  onSave: (value: string) => void;
+  editable?: boolean;
+  multiline?: boolean;
+  className?: string;
+  pencilSize?: { width: string; height: string };
+}
+
+export default function EditableField({
+  value,
+  onSave,
+  editable = true,
+  multiline = false,
+  className = '',
+  pencilSize,
+}: EditableFieldProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [draft, setDraft] = useState(value);
+  const [inputWidth, setInputWidth] = useState(0);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const sizerRef = useRef<HTMLSpanElement>(null);
+  const wrapperRef = useRef<HTMLSpanElement>(null);
+  const baseClassName = `bg-transparent outline-none ${className}`;
+
+  const handleBlur = (e: React.FocusEvent) => {
+    const next = e.relatedTarget as Node;
+
+    if (wrapperRef.current?.contains(next)) return;
+
+    handleSave();
+  };
+
+  useEffect(() => {
+    setDraft(value);
+  }, [value]);
+  // 편집 진입 시 포커스 + 커서 맨 뒤
+  useEffect(() => {
+    if (!isEditing) return;
+
+    const element = multiline ? textareaRef.current : inputRef.current;
+    if (!element) return;
+
+    element.focus();
+    element.setSelectionRange(element.value.length, element.value.length);
+
+    if (multiline && textareaRef.current) {
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isEditing, multiline]);
+
+  // textarea 높이 자동 조절
+  useEffect(() => {
+    if (!multiline || !textareaRef.current) return;
+    const el = textareaRef.current;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  }, [draft, multiline]);
+
+  // 단일 줄 너비 측정
+  useEffect(() => {
+    if (!multiline && sizerRef.current) {
+      setInputWidth(sizerRef.current.offsetWidth);
+    }
+  }, [draft, multiline]);
+
+  const handleSave = useCallback(() => {
+    if (draft.trim() === '') {
+      toast.warning('내용을 입력해주세요.');
+      return;
+    }
+    onSave(draft);
+    setIsEditing(false);
+  }, [draft, onSave]);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !multiline) {
+      e.preventDefault();
+      handleSave();
+    }
+    if (e.key === 'Escape') {
+      setDraft(value);
+      setIsEditing(false);
+    }
+  };
+
+  const startEditing = () => {
+    setDraft(value);
+    setIsEditing(true);
+  };
+
+  // 읽기 전용
+  if (!editable) return <span className={className}>{value}</span>;
+
+  // 편집 모드
+  if (isEditing) {
+    const sharedProps = {
+      value: draft,
+      onBlur: handleBlur,
+      onKeyDown: handleKeyDown,
+    };
+
+    return multiline ? (
+      <textarea
+        {...sharedProps}
+        ref={textareaRef}
+        onBlur={handleBlur}
+        rows={1}
+        className={`${baseClassName} resize-none w-full`}
+        onChange={(e) => setDraft(e.target.value)}
+      />
+    ) : (
+      <span ref={wrapperRef} className="relative inline-flex items-center">
+        {/* 너비 측정용 숨긴 span */}
+        <span
+          ref={sizerRef}
+          className={`invisible absolute whitespace-pre ${className}`}
+          aria-hidden
+        >
+          {draft || ' '}
+        </span>
+        <input
+          {...sharedProps}
+          ref={inputRef}
+          className={baseClassName}
+          style={{ width: inputWidth > 0 ? inputWidth + 4 : 'auto' }}
+          onChange={(e) => setDraft(e.target.value)}
+        />
+      </span>
+    );
+  }
+
+  // 기본 모드
+  return (
+    <span className="inline">
+      <span className={`inline ${className}`}>{value}</span>
+      <button
+        onClick={startEditing}
+        aria-label="편집"
+        className="inline-flex items-center ml-2 translate-y-[1px] hover:opacity-70 transition-opacity"
+      >
+        <PencilIcon {...pencilSize} />
+      </button>
+    </span>
+  );
+}
