@@ -1,29 +1,50 @@
-import EmptyProject from '@/widget/empty-project/ui';
-import { User } from '@/entities/user/model/types';
+'use client';
+
+import { useState } from 'react';
 import { Project } from '@/entities/project/model/types';
+import ProjectHeader from '@/widget/main/ui/ProjectHeader';
+import MemberList from '@/widget/main/ui/MemberList';
+import EditableField from '@/shared/ui/EditableField';
+import { MOCK_MEMBERS } from '@/features/MemberSelect/model/tempData';
 
-async function getCurrentUser(): Promise<User> {
-  return {
-    id: '1',
-    email: 'jiyu@gmail.com',
-    name: '김지유',
-    studentId: '1205',
-    role: 'LEADER',
-  };
+interface Props {
+  project: Project;
+  currentUserId: string;
 }
 
-async function getUserProject(): Promise<Project | null> {
-  return null;
-}
+export default function MainView({ project: initial, currentUserId }: Props) {
+  const [project, setProject] = useState(initial);
+  const isLeader = project.leaderId === currentUserId;
 
-export async function MainView() {
-  const user = await getCurrentUser();
-  const project = await getUserProject();
+  const update = (patch: Partial<Project>) => setProject((prev) => ({ ...prev, ...patch }));
 
-  if (!project) {
-    return <EmptyProject role={user.role} />;
-  }
+  return (
+    <div className="flex flex-col gap-5 w-full max-w-[500px]">
+      <ProjectHeader
+        name={project.name}
+        teamName={project.teamName}
+        logoUrl={project.logoUrl}
+        editable={isLeader}
+        onUpdateName={(name) => update({ name })}
+        onUpdateTeamName={(teamName) => update({ teamName })}
+        onUpdateLogo={(file) => console.log('logo file:', file)}
+      />
 
-  // 프로젝트 있는 경우(아직 구현 안함)
-  return null;
+      <MemberList
+        members={project.members}
+        availableMembers={MOCK_MEMBERS}
+        editable={isLeader}
+        onUpdate={(members) => update({ members })}
+      />
+
+      <EditableField
+        value={project.description}
+        onSave={(description) => update({ description })}
+        editable={isLeader}
+        multiline
+        className="text-[20px]"
+        pencilSize={{ width: '13', height: '17.7' }}
+      />
+    </div>
+  );
 }
