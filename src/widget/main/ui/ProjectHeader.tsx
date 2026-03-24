@@ -40,18 +40,15 @@ export default function ProjectHeader({
     setPreviewUrl(logoUrl);
   }, [logoUrl]);
 
-  // ✅ 개선
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // 파일 크기 검증 (예: 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error('이미지는 5MB 이하만 업로드 가능합니다.');
       return;
     }
 
-    // 파일 형식 검증
     if (!file.type.startsWith('image/')) {
       toast.error('이미지 파일만 업로드 가능합니다.');
       return;
@@ -101,7 +98,6 @@ export default function ProjectHeader({
         />
       </div>
 
-      {/* 프로젝트명 / 팀명 */}
       {fields.map(({ value, onSave, className, pencilSize, wrapperClass }, index) => (
         <div key={index} className={wrapperClass}>
           <EditableField

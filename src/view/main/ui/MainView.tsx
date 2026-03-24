@@ -27,7 +27,7 @@ export default function MainView({ project: initial, currentUserId }: Props) {
         editable={isLeader}
         onUpdateName={(name) => update({ name })}
         onUpdateTeamName={(teamName) => update({ teamName })}
-        onUpdateLogo={(file) => console.log('logo file:', file)} // TODO: API 연동
+        onUpdateLogo={(file) => console.log('logo file:', file)}
       />
 
       <MemberList

@@ -42,7 +42,7 @@ export default function EditableField({
   useEffect(() => {
     setDraft(value);
   }, [value]);
-  // 편집 진입 시 포커스 + 커서 맨 뒤
+
   useEffect(() => {
     if (!isEditing) return;
 
@@ -57,7 +57,6 @@ export default function EditableField({
     }
   }, [isEditing, multiline]);
 
-  // textarea 높이 자동 조절
   useEffect(() => {
     if (!multiline || !textareaRef.current) return;
     const el = textareaRef.current;
@@ -65,7 +64,6 @@ export default function EditableField({
     el.style.height = `${el.scrollHeight}px`;
   }, [draft, multiline]);
 
-  // 단일 줄 너비 측정
   useEffect(() => {
     if (!multiline && sizerRef.current) {
       setInputWidth(sizerRef.current.offsetWidth);
@@ -97,10 +95,8 @@ export default function EditableField({
     setIsEditing(true);
   };
 
-  // 읽기 전용
   if (!editable) return <span className={className}>{value}</span>;
 
-  // 편집 모드
   if (isEditing) {
     const sharedProps = {
       value: draft,
@@ -119,7 +115,6 @@ export default function EditableField({
       />
     ) : (
       <span ref={wrapperRef} className="relative inline-flex items-center">
-        {/* 너비 측정용 숨긴 span */}
         <span
           ref={sizerRef}
           className={`invisible absolute whitespace-pre ${className}`}
@@ -138,7 +133,6 @@ export default function EditableField({
     );
   }
 
-  // 기본 모드
   return (
     <span className="inline">
       <span className={`inline ${className}`}>{value}</span>

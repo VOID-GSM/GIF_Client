@@ -15,15 +15,13 @@ interface MemberListProps {
 
 export default function MemberList({
   members,
-  availableMembers = [], // ✅ 안전 처리
+  availableMembers = [],
   editable,
   onUpdate,
 }: MemberListProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // 🔥 검색 필터 (개선: trim + 소문자)
   const normalized = search.trim().toLowerCase();
 
   const filtered = availableMembers.filter((c) => {
@@ -35,7 +33,6 @@ export default function MemberList({
     return !isAlreadyMember && matchesSearch;
   });
 
-  // 🔥 Enter → 첫 번째 항목 추가
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && filtered.length > 0) {
       e.preventDefault();
@@ -43,7 +40,6 @@ export default function MemberList({
     }
   };
 
-  // 🔥 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -97,7 +93,6 @@ export default function MemberList({
 
             {isOpen && (
               <div className="absolute z-50 top-[36px] left-0 rounded-[8px]">
-                {/* 검색 input */}
                 <div className="bg-white w-[120px] h-[30px] px-[9px] flex items-center border border-gray-80 rounded-[5px]">
                   <input
                     autoFocus
@@ -109,7 +104,6 @@ export default function MemberList({
                   />
                 </div>
 
-                {/* 리스트 */}
                 <div className="bg-main-card w-[120px] max-h-[88px] overflow-y-auto scrollbar-hide rounded-[5px] shadow-[1px_1px_20px_0_rgba(0,0,0,0.2)]">
                   {filtered.length > 0 ? (
                     filtered.map((c) => (
