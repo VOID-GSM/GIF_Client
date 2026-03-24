@@ -29,14 +29,6 @@ export default function ProjectHeader({
   const [previewUrl, setPreviewUrl] = useState(logoUrl);
 
   useEffect(() => {
-    return () => {
-      if (previewUrl && previewUrl.startsWith('blob:')) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
-
-  useEffect(() => {
     setPreviewUrl(logoUrl);
   }, [logoUrl]);
 
@@ -54,31 +46,16 @@ export default function ProjectHeader({
       return;
     }
 
+    if (previewUrl?.startsWith('blob:')) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(URL.createObjectURL(file));
     onUpdateLogo(file);
   };
-
-  const fields = [
-    {
-      value: name,
-      onSave: onUpdateName,
-      className: 'text-[40px] font-medium',
-      pencilSize: { width: '23', height: '32' },
-      wrapperClass: 'mb-[25px]',
-    },
-    {
-      value: teamName,
-      onSave: onUpdateTeamName,
-      className: 'text-2xl font-medium',
-      pencilSize: { width: '15', height: '20' },
-      wrapperClass: '',
-    },
-  ];
 
   return (
     <div className="flex flex-col">
       <div className="relative w-[70px] h-[70px] mb-[40px]">
         <button
+          type="button"
           onClick={() => editable && fileInputRef.current?.click()}
           disabled={!editable}
           className="relative w-full h-full rounded-[10px] overflow-hidden flex items-center justify-center bg-white outline outline-2 outline-gray-80"
@@ -98,17 +75,22 @@ export default function ProjectHeader({
         />
       </div>
 
-      {fields.map(({ value, onSave, className, pencilSize, wrapperClass }, index) => (
-        <div key={index} className={wrapperClass}>
-          <EditableField
-            value={value}
-            onSave={onSave}
-            editable={editable}
-            className={className}
-            pencilSize={pencilSize}
-          />
-        </div>
-      ))}
+      <div className="mb-[25px]">
+        <EditableField
+          value={name}
+          onSave={onUpdateName}
+          editable={editable}
+          className="text-[40px] font-medium"
+          pencilSize={{ width: '23', height: '32' }}
+        />
+      </div>
+      <EditableField
+        value={teamName}
+        onSave={onUpdateTeamName}
+        editable={editable}
+        className="text-2xl font-medium"
+        pencilSize={{ width: '15', height: '20' }}
+      />
     </div>
   );
 }
