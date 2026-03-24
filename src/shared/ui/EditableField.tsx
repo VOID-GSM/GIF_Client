@@ -82,12 +82,12 @@ export default function EditableField({
   }, [draft, onSave]);
 
   const handleBlur = (e: React.FocusEvent) => {
-    if (isEscaping.current) {
-      isEscaping.current = false;
+    const next = e.relatedTarget;
+
+    if (next instanceof Node && wrapperRef.current?.contains(next)) {
       return;
     }
-    const next = e.relatedTarget as Node;
-    if (wrapperRef.current?.contains(next)) return;
+
     handleSave();
   };
 
