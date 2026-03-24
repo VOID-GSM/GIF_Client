@@ -56,7 +56,7 @@ export default function ProjectHeader({
       <div className="relative w-[70px] h-[70px] mb-[40px]">
         <button
           type="button"
-          onClick={() => editable && fileInputRef.current?.click()}
+          onClick={() => fileInputRef.current?.click()}
           disabled={!editable}
           className="relative w-full h-full rounded-[10px] overflow-hidden flex items-center justify-center bg-white outline outline-2 outline-gray-80 cursor-pointer"
         >
