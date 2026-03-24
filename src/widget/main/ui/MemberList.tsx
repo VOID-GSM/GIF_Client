@@ -109,7 +109,7 @@ export default function MemberList({
                         key={c.id}
                         type="button"
                         onClick={() => handleAdd(c)}
-                        className={`w-full text-left px-3 py-1 text-xs hover:bg-gray-100 cursor-pointer ${index === 0 ? 'rounded-t-[5px]' : ''}`}
+                        className={`w-full text-left px-3 py-1 text-xs hover:bg-gray-100 cursor-pointer ${index === 0 ? 'rounded-t-[5px]' : ''} ${index === filtered.length - 1 ? 'rounded-b-[5px]' : ''}`}
                       >
                         {c.studentId} {c.name}
                       </button>
