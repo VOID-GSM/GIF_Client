@@ -29,29 +29,21 @@ export default function EditableField({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const sizerRef = useRef<HTMLSpanElement>(null);
   const wrapperRef = useRef<HTMLSpanElement>(null);
+  const isEscaping = useRef(false);
+  const isToastingRef = useRef(false);
   const baseClassName = `bg-transparent outline-none ${className}`;
 
-  const handleBlur = (e: React.FocusEvent) => {
-    const next = e.relatedTarget as Node;
-
-    if (wrapperRef.current?.contains(next)) return;
-
-    handleSave();
-  };
-
   useEffect(() => {
-    setDraft(value);
-  }, [value]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!isEditing) setDraft(value);
+  }, [value, isEditing]);
 
   useEffect(() => {
     if (!isEditing) return;
-
     const element = multiline ? textareaRef.current : inputRef.current;
     if (!element) return;
-
     element.focus();
     element.setSelectionRange(element.value.length, element.value.length);
-
     if (multiline && textareaRef.current) {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
@@ -72,12 +64,32 @@ export default function EditableField({
 
   const handleSave = useCallback(() => {
     if (draft.trim() === '') {
-      toast.warning('내용을 입력해주세요.');
+      if (!isToastingRef.current) {
+        isToastingRef.current = true;
+        toast.warning('내용을 입력해주세요.', {
+          onDismiss: () => {
+            isToastingRef.current = false;
+          },
+          onAutoClose: () => {
+            isToastingRef.current = false;
+          },
+        });
+      }
       return;
     }
     onSave(draft);
     setIsEditing(false);
   }, [draft, onSave]);
+
+  const handleBlur = (e: React.FocusEvent) => {
+    if (isEscaping.current) {
+      isEscaping.current = false;
+      return;
+    }
+    const next = e.relatedTarget as Node;
+    if (wrapperRef.current?.contains(next)) return;
+    handleSave();
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !multiline) {
@@ -85,6 +97,7 @@ export default function EditableField({
       handleSave();
     }
     if (e.key === 'Escape') {
+      isEscaping.current = true;
       setDraft(value);
       setIsEditing(false);
     }
@@ -108,7 +121,6 @@ export default function EditableField({
       <textarea
         {...sharedProps}
         ref={textareaRef}
-        onBlur={handleBlur}
         rows={1}
         className={`${baseClassName} resize-none w-full`}
         onChange={(e) => setDraft(e.target.value)}
@@ -137,6 +149,7 @@ export default function EditableField({
     <span className="inline">
       <span className={`inline ${className}`}>{value}</span>
       <button
+        type="button"
         onClick={startEditing}
         aria-label="편집"
         className="inline-flex items-center ml-2 translate-y-[1px] hover:opacity-70 transition-opacity"
