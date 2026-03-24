@@ -1,0 +1,8 @@
+export default function Plus() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 0V12" stroke="black" />
+      <path d="M0 6H12" stroke="black" />
+    </svg>
+  );
+}
