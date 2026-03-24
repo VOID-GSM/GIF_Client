@@ -73,7 +73,11 @@ export default function MemberList({
           >
             {m.studentId} {m.name}
             {editable && m.role !== 'LEADER' && (
-              <button type="button" onClick={() => handleRemove(m.studentId)}>
+              <button
+                type="button"
+                onClick={() => handleRemove(m.studentId)}
+                className="cursor-pointer"
+              >
                 <Deleted />
               </button>
             )}
@@ -85,7 +89,7 @@ export default function MemberList({
             <button
               type="button"
               onClick={() => setIsOpen((prev) => !prev)}
-              className="w-[40px] h-[30px] rounded-[20px] bg-green-70 flex items-center justify-center"
+              className="w-[40px] h-[30px] rounded-[20px] bg-green-70 flex items-center justify-center cursor-pointer"
             >
               <Plus />
             </button>

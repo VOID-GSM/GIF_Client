@@ -156,7 +156,7 @@ export default function EditableField({
         type="button"
         onClick={startEditing}
         aria-label="편집"
-        className="inline-flex items-center ml-2 translate-y-[1px] hover:opacity-70 transition-opacity"
+        className="inline-flex items-center ml-2 translate-y-[1px] hover:opacity-70 transition-opacity cursor-pointer"
       >
         <PencilIcon {...pencilSize} />
       </button>

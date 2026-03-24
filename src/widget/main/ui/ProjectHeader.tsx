@@ -58,7 +58,7 @@ export default function ProjectHeader({
           type="button"
           onClick={() => editable && fileInputRef.current?.click()}
           disabled={!editable}
-          className="relative w-full h-full rounded-[10px] overflow-hidden flex items-center justify-center bg-white outline outline-2 outline-gray-80"
+          className="relative w-full h-full rounded-[10px] overflow-hidden flex items-center justify-center bg-white outline outline-2 outline-gray-80 cursor-pointer"
         >
           {previewUrl ? (
             <Image src={previewUrl} alt="프로젝트 로고" fill className="object-cover" />
