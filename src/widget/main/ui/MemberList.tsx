@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, KeyboardEvent } from 'react';
 import { Member } from '@/entities/member/model/types';
 import Plus from '@/shared/asset/svg/Plus';
 import Deleted from '@/shared/asset/svg/Deleted';
-import { KeyboardEvent } from 'react';
 
 interface MemberListProps {
   members: Member[];
@@ -22,23 +21,16 @@ export default function MemberList({
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const normalized = search.trim().toLowerCase();
 
-  const filtered = availableMembers.filter((c) => {
-    const isAlreadyMember = members.some((m) => m.studentId === c.studentId);
-
-    const matchesSearch =
-      c.name.toLowerCase().includes(normalized) || c.studentId.includes(normalized);
-
-    return !isAlreadyMember && matchesSearch;
-  });
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && filtered.length > 0) {
-      e.preventDefault();
-      handleAdd(filtered[0]);
-    }
-  };
+  const filtered = useMemo(() => {
+    const normalized = search.trim().toLowerCase();
+    return availableMembers.filter((c) => {
+      const isAlreadyMember = members.some((m) => m.studentId === c.studentId);
+      const matchesSearch =
+        c.name.toLowerCase().includes(normalized) || c.studentId.includes(normalized);
+      return !isAlreadyMember && matchesSearch;
+    });
+  }, [availableMembers, members, search]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -47,12 +39,12 @@ export default function MemberList({
         setSearch('');
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleAdd = (candidate: Member) => {
+    if (members.some((m) => m.studentId === candidate.studentId)) return;
     onUpdate([...members, candidate]);
     setIsOpen(false);
     setSearch('');
@@ -60,6 +52,13 @@ export default function MemberList({
 
   const handleRemove = (studentId: string) => {
     onUpdate(members.filter((m) => m.studentId !== studentId));
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && filtered.length > 0) {
+      e.preventDefault();
+      handleAdd(filtered[0]);
+    }
   };
 
   return (
@@ -103,15 +102,14 @@ export default function MemberList({
                     className="bg-transparent w-full text-[13px] outline-none placeholder:text-gray-40"
                   />
                 </div>
-
                 <div className="bg-main-card w-[120px] max-h-[88px] overflow-y-auto scrollbar-hide rounded-[5px] shadow-[1px_1px_20px_0_rgba(0,0,0,0.2)]">
                   {filtered.length > 0 ? (
-                    filtered.map((c) => (
+                    filtered.map((c, index) => (
                       <button
                         key={c.id}
                         type="button"
                         onClick={() => handleAdd(c)}
-                        className="w-full text-left px-3 py-1 text-xs hover:bg-gray-100"
+                        className={`w-full text-left px-3 py-1 text-xs hover:bg-gray-100 cursor-pointer ${index === 0 ? 'rounded-t-[5px]' : ''}`}
                       >
                         {c.studentId} {c.name}
                       </button>
