@@ -6,6 +6,7 @@ interface ButtonProps {
   disabled?: boolean;
   onClick?: () => void;
   variant?: 'main' | 'sub';
+  className?: string;
 }
 
 export default function Button({
@@ -15,6 +16,7 @@ export default function Button({
   width = 'w-full',
   height = 'h-12.5',
   variant = 'main',
+  className = '',
   onClick,
 }: ButtonProps) {
   const base = 'rounded-[10px] text-2xl font-semibold';
@@ -27,7 +29,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${base} ${variantStyle} ${width} ${height}`}
+      className={`${base} ${variantStyle} ${width} ${height} ${className}`}
     >
       {children}
     </button>
