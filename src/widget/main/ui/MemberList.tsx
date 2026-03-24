@@ -28,7 +28,7 @@ export default function MemberList({
       const isAlreadyMember = members.some((m) => m.studentId === c.studentId);
       const matchesSearch =
         c.name.toLowerCase().includes(normalized) || c.studentId.includes(normalized);
-      return !isAlreadyMember && matchesSearch;
+      return !isAlreadyMember && matchesSearch && c.role !== 'LEADER';
     });
   }, [availableMembers, members, search]);
 
@@ -72,7 +72,7 @@ export default function MemberList({
             className="w-[120px] h-[30px] bg-high-emphasis rounded-[20px] flex items-center justify-center font-medium gap-2"
           >
             {m.studentId} {m.name}
-            {editable && (
+            {editable && m.role !== 'LEADER' && (
               <button type="button" onClick={() => handleRemove(m.studentId)}>
                 <Deleted />
               </button>
