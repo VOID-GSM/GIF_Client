@@ -23,11 +23,9 @@ export default function MainView({ project: initial, currentUserId }: Props) {
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.add('overflow-hidden');
     }
-    return () => { document.body.style.overflow = 'unset'; };
+    return () => { document.body.classList.remove('overflow-hidden'); };
   }, [isModalOpen]);
 
   const openModal = () => setIsModalOpen(true);
