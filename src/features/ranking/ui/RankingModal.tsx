@@ -62,8 +62,12 @@ export const RankingModal = ({ onClose }: RankingModalProps) => {
           >
             <Button
               onClick={() => setActiveGrade(grade)}
-              variant={activeGrade === grade ? "main" : "sub"}
-              className="!bg-transparent !text-inherit !w-[100px] !h-[35px] !text-sm !font-normal !rounded-none !border-none"
+              variant="tab" 
+              width="w-[100px]"
+              height="h-[35px]"
+              className={`text-sm font-normal rounded-none ${
+                activeGrade === grade ? "font-bold" : "" 
+              }`}
             >
               {grade}학년
             </Button>
