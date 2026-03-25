@@ -39,8 +39,8 @@ export const RankingModal = ({ onClose }: RankingModalProps) => {
       </button>
 
       <div className="flex items-end justify-center gap-7 mb-8 h-[180px]">
-        {displayRankings.map((item, index) => (
-          <div key={index} className="flex flex-col items-center w-[60px]">
+        {displayRankings.map((item) => (
+          <div key={item.rank} className="flex flex-col items-center w-[60px]">
             <span className="font-medium text-xl">{item.name}</span>
             <div 
               style={{ height: HEIGHT_RANKBAR[item.rank] }}
