@@ -8,13 +8,15 @@ import EditableField from '@/shared/ui/EditableField';
 import { MOCK_MEMBERS } from '@/features/MemberSelect/model/tempData';
 import Button from '@/shared/ui/button/Button';
 import { RankingModal } from '@/features/ranking/ui/RankingModal';
+import { RANKING_OPEN_DATE } from '@/shared/constants/date';
 
 interface Props {
   project: Project;
   currentUserId: string;
 }
 
-const TARGET_DATE = new Date('2026-12-29T00:00:00');
+const TARGET_DATE = new Date(RANKING_OPEN_DATE);
+
 export default function MainView({ project: initial, currentUserId }: Props) {
   const [project, setProject] = useState(initial);
   const [isModalOpen, setIsModalOpen] = useState(false);

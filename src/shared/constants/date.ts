@@ -1,0 +1,1 @@
+export const RANKING_OPEN_DATE = '2026-12-29T00:00:00';
