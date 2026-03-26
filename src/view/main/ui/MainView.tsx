@@ -22,6 +22,7 @@ export default function MainView({ project: initial, currentUserId }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isShowRankingButton = new Date() >= TARGET_DATE;
+  const isLeader = project.leaderId === currentUserId;
 
   useEffect(() => {
     if (isModalOpen) {
@@ -32,7 +33,6 @@ export default function MainView({ project: initial, currentUserId }: Props) {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  const isLeader = project.leaderId === currentUserId;
   const update = (patch: Partial<Project>) => setProject((prev) => ({ ...prev, ...patch }));
 
   return (
