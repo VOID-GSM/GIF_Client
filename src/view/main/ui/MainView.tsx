@@ -25,9 +25,10 @@ export default function MainView({ project: initial, currentUserId }: Props) {
   const isLeader = project.leaderId === currentUserId;
 
   useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add('overflow-hidden');
-    }
+    if (!isModalOpen) return;
+
+    document.body.classList.add('overflow-hidden');
+    
     return () => { document.body.classList.remove('overflow-hidden'); };
   }, [isModalOpen]);
 
