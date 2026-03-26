@@ -2,7 +2,7 @@
 
 import { Cancel } from '@/shared/asset/svg/Cancel';
 import Button from '@/shared/ui/button/Button';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { GRADE_1_RANKING, GRADE_2_RANKING } from '../model/rankData';
 
 
@@ -27,7 +27,7 @@ const getPodiumRankings = (grade: number) => {
 
 export const RankingModal = ({ onClose }: RankingModalProps) => {
   const [activeGrade, setActiveGrade] = useState<number>(1);
-  const displayRankings = getPodiumRankings(activeGrade);
+  const displayRankings = useMemo(() => getPodiumRankings(activeGrade), [activeGrade]);
   
   return (
     <div className="relative w-[350px] bg-white rounded-[20px] p-4 shadow-lg flex flex-col items-center">
