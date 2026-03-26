@@ -28,7 +28,7 @@ const getPodiumRankings = (grade: number) => {
 export const RankingModal = ({ onClose }: RankingModalProps) => {
   const [activeGrade, setActiveGrade] = useState<number>(1);
   const displayRankings = useMemo(() => getPodiumRankings(activeGrade), [activeGrade]);
-  
+
   return (
     <div className="relative w-[350px] bg-white rounded-[20px] p-4 shadow-lg flex flex-col items-center">
       <button 
@@ -43,7 +43,7 @@ export const RankingModal = ({ onClose }: RankingModalProps) => {
           <div key={item.rank} className="flex flex-col items-center w-[60px]">
             <span className="font-medium text-xl">{item.name}</span>
             <div 
-              style={{ height: HEIGHT_RANKBAR[item.rank] }}
+              style={{ height: HEIGHT_RANKBAR[item.rank] ?? '35px' }}
               className="w-15 rounded-t-2xl rounded-b bg-gradient-to-t from-main to-green-50"
             />
           </div>
@@ -65,8 +65,8 @@ export const RankingModal = ({ onClose }: RankingModalProps) => {
               variant="tab" 
               width="w-[100px]"
               height="h-[35px]"
-              className={`text-sm font-normal rounded-none ${
-                activeGrade === grade ? "font-bold" : "" 
+              className={`text-sm rounded-none ${
+                activeGrade === grade ? "font-bold" : "font-normal" 
               }`}
             >
               {grade}학년
