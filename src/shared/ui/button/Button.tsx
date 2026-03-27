@@ -5,8 +5,16 @@ interface ButtonProps {
   height?: string;
   disabled?: boolean;
   onClick?: () => void;
-  variant?: 'main' | 'sub';
+  variant?: 'main' | 'sub' | 'tab';
+  className?: string;
 }
+
+const variantStyle = {
+  main: 'bg-main text-white cursor-pointer',
+  sub: 'bg-gray-100 cursor-pointer',
+  disabled: 'bg-gray-100 text-white',
+  tab: 'bg-transparent text-inherit border-none cursor-pointer'
+};
 
 export default function Button({
   children,
@@ -15,19 +23,18 @@ export default function Button({
   width = 'w-full',
   height = 'h-12.5',
   variant = 'main',
+  className = '',
   onClick,
 }: ButtonProps) {
+  const currentVariant = disabled ? 'disabled' : variant;
   const base = 'rounded-[10px] text-2xl font-semibold';
 
-  const variantStyle = disabled ? 'bg-gray-100 text-white' : variant === 'sub' 
-    ? 'bg-gray-100 cursor-pointer'
-    : 'bg-main text-white cursor-pointer';
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${base} ${variantStyle} ${width} ${height}`}
+      className={`${base} ${variantStyle[currentVariant]} ${width} ${height} ${className}`}
     >
       {children}
     </button>
