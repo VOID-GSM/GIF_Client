@@ -80,8 +80,8 @@ export default function MemberSelect({
   return (
     <div className="relative w-[400px]" ref={selectRef}>
       <div
-        className={`w-full h-[50px] border px-3 rounded-[10px] cursor-pointer placeholder:text-[#8B8B8B] text-[18px] font-medium flex gap-1 items-center
-          flex-nowrap overflow-x-auto whitespace-nowrap scrollbar-hide border-[#787878]`}
+        className={`w-full h-[50px] border px-3 rounded-[10px] cursor-pointer placeholder:text-gray-40 text-[18px] font-medium flex gap-1 items-center
+          flex-nowrap overflow-x-auto whitespace-nowrap scrollbar-hide border-gray-60`}
         onClick={() => setIsOpen(!isOpen)}
         ref={containerRef}
       >
@@ -90,17 +90,17 @@ export default function MemberSelect({
             <Badge key={member.id} id={member.id} name={member.name} onRemove={onRemoveMember} />
           ))
         ) : (
-          <span className="text-[#929292]">{value}</span>
+          <span className="text-gray-40">{value}</span>
         )}
       </div>
 
       {isOpen && (
-        <div className="absolute z-50 w-100 h-[150px] overflow-y-auto bg-[#f9f9f9] shadow-[1px_1px_20px_rgba(0,0,0,0.2)] rounded-[5px]">
+        <div className="absolute z-50 w-100 h-[150px] overflow-y-auto bg-main-card shadow-[1px_1px_20px_rgba(0,0,0,0.2)] rounded-[5px]">
           <input
             type="text"
             placeholder="팀원을 검색하세요"
             value={searchTerm || ''}
-            className="w-90 h-9 ml-3 border-b border-[#787878] text-md placeholder-[#7F7F7F] focus:outline-none"
+            className="w-90 h-9 ml-3 border-b border-gray-80 text-md placeholder:text-gray-40 focus:outline-none"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div className="w-full flex flex-col px-3 py-1 gap-[5px]">
@@ -117,7 +117,7 @@ export default function MemberSelect({
                 />
               ))
             ) : (
-              <div className="text-md text-[#8B8B8B]">검색 결과가 없습니다.</div>
+              <div className="text-md">검색 결과가 없습니다.</div>
             )}
           </div>
         </div>
