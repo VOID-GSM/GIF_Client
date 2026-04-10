@@ -16,7 +16,7 @@ export interface CalendarSchedule {
 }
 
 interface CalendarProps {
-  onChange?: (isDone: boolean) => void
+  onChange?: (isDone: boolean) => void;
 }
 
 export function Calendar({ onChange }: CalendarProps) {
@@ -87,12 +87,12 @@ export function Calendar({ onChange }: CalendarProps) {
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.classList.add("overflow-hidden");
+      document.body.classList.add('overflow-hidden');
     } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove('overflow-hidden');
     }
     return () => {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove('overflow-hidden');
     };
   }, [isModalOpen]);
 
@@ -113,9 +113,9 @@ export function Calendar({ onChange }: CalendarProps) {
     const map: Record<string, CalendarSchedule[]> = {};
 
     schedules.forEach((s) => {
-      const start = s.startDate
-      const end = s.endDate
-      
+      const start = s.startDate;
+      const end = s.endDate;
+
       const current = new Date(start.getFullYear(), start.getMonth(), start.getDate());
       const last = new Date(end.getFullYear(), end.getMonth(), end.getDate());
 
@@ -123,7 +123,7 @@ export function Calendar({ onChange }: CalendarProps) {
         const dateKey = current.toDateString();
         if (!map[dateKey]) map[dateKey] = [];
         map[dateKey].push(s);
-        
+
         current.setDate(current.getDate() + 1);
       }
     });
@@ -193,12 +193,10 @@ export function Calendar({ onChange }: CalendarProps) {
                 >
                   {item.day}
                   <div className="flex justify-center gap-1 mt-1">
-                    {dateKey && scheduleMap[dateKey]?.map((s) => (
-                      <div
-                        key={s.id}
-                        className={`w-2.5 h-2.5 rounded-full ${s.color}`}
-                      />
-                    ))}
+                    {dateKey &&
+                      scheduleMap[dateKey]?.map((s) => (
+                        <div key={s.id} className={`w-2.5 h-2.5 rounded-full ${s.color}`} />
+                      ))}
                   </div>
                 </button>
               )}
@@ -216,13 +214,12 @@ export function Calendar({ onChange }: CalendarProps) {
               className="flex items-center justify-between py-2 px-3 rounded-lg group bg-white"
             >
               <div className="flex items-center gap-2">
-                <div
-                  className={`w-3 h-3 rounded-full mx-2 ${s.color}`}
-                ></div>
+                <div className={`w-3 h-3 rounded-full mx-2 ${s.color}`}></div>
                 <div>
                   <p>{s.title}</p>
                   <p>
-                    {s.startDate.toLocaleDateString()} - {s.endDate.toLocaleDateString()}
+                    {s.startDate.toLocaleDateString('ko-KR')} -{' '}
+                    {s.endDate.toLocaleDateString('ko-KR')}
                   </p>
                 </div>
               </div>
