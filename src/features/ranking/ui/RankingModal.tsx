@@ -52,7 +52,7 @@ export const RankingModal = ({ onClose }: RankingModalProps) => {
             key={grade}
             className={`rounded-[10px] overflow-hidden border transition-all ${
               activeGrade === grade
-                ? 'border-main bg-green-70 text-black shadow-[0_0_0_0.5px_#31c690]'
+                ? 'border-main bg-green-70 text-black shadow-[0_0_0_0.5px_var(--color-main)]'
                 : 'border-gray-70 bg-high-emphasis text-gray-40'
             }`}
           >
