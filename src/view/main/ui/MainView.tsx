@@ -28,8 +28,10 @@ export default function MainView({ project: initial, currentUserId }: Props) {
     if (!isModalOpen) return;
 
     document.body.classList.add('overflow-hidden');
-    
-    return () => { document.body.classList.remove('overflow-hidden'); };
+
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
   }, [isModalOpen]);
 
   const openModal = () => setIsModalOpen(true);
@@ -68,8 +70,10 @@ export default function MainView({ project: initial, currentUserId }: Props) {
 
       {isShowRankingButton && (
         <div className="mt-70">
-          <Button onClick={openModal} className='!font-medium !text-[20px]'>등수 확인</Button>
-      </div>
+          <Button onClick={openModal} className="font-medium text-[20px]">
+            등수 확인
+          </Button>
+        </div>
       )}
 
       {isModalOpen && (
