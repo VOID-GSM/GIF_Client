@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-family-sans: Pretendard, sans-serif;
+
+  --color-gray-0: #111111;
+  --color-gray-10: #1e1e1e;
+  --color-gray-20: #454545;
+  --color-gray-30: #656565;
+  --color-gray-40: #7f7f7f;
+  --color-gray-50: #939393;
+  --color-gray-60: #a7a7a7;
+  --color-gray-70: #bababa;
+  --color-gray-80: #c8c8c8;
+  --color-gray-90: #d7d7d7;
+  --color-gray-100: #e3e3e3;
+
+  --color-main: #31c690;
+  --color-green-10: #135d42;
+  --color-green-20: #1b7454;
+  --color-green-30: #259c72;
+  --color-green-40: #27d79c;
+  --color-green-50: #7edcba;
+  --color-green-60: #a7e7cf;
+  --color-green-70: #d0f2e4;
+  --color-green-80: #dff6ee;
+
+  --color-bg-main: #f7fffc;
+  --color-bg-login: #fefefe;
+  --color-bg-opacity: #0000001a;
+
+  --color-main-card: #fafafa;
+  --color-high-emphasis: #ededed;
+  --color-input: #fefefe;
+
+  --color-grad-start: var(--color-green-50);
+  --color-grad-end: var(--color-main);
+
+  --color-pastel-red: #FFADAD;
+  --color-pastel-orange: #FFD6A5;
+  --color-pastel-yellow: #FDFFB6;
+  --color-pastel-green: #CAFFBF;
+  --color-pastel-cyan: #9BF6FF;
+  --color-pastel-blue: #A0C4FF;
+  --color-pastel-purple: #BDB2FF;
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+  }
+}
+
+body {
+  font-family: var(--font-family-sans);
+}
