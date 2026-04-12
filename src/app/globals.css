@@ -1,7 +1,17 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: 'Cafe24Decobox';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Decobox.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-family-sans: Pretendard, sans-serif;
+  --font-decobox: 'Cafe24Decobox', sans-serif;
 
   --color-gray-0: #111111;
   --color-gray-10: #1e1e1e;
@@ -36,13 +46,13 @@
   --color-grad-start: var(--color-green-50);
   --color-grad-end: var(--color-main);
 
-  --color-pastel-red: #FFADAD;
-  --color-pastel-orange: #FFD6A5;
-  --color-pastel-yellow: #FDFFB6;
-  --color-pastel-green: #CAFFBF;
-  --color-pastel-cyan: #9BF6FF;
-  --color-pastel-blue: #A0C4FF;
-  --color-pastel-purple: #BDB2FF;
+  --color-pastel-red: #ffadad;
+  --color-pastel-orange: #ffd6a5;
+  --color-pastel-yellow: #fdffb6;
+  --color-pastel-green: #caffbf;
+  --color-pastel-cyan: #9bf6ff;
+  --color-pastel-blue: #a0c4ff;
+  --color-pastel-purple: #bdb2ff;
 }
 
 @layer utilities {
@@ -50,9 +60,8 @@
     display: none;
   }
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
 
