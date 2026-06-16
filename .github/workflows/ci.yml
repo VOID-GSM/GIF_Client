@@ -1,6 +1,12 @@
 name: Node.js CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
 
 jobs:
   build:
@@ -29,26 +35,26 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
-      - name: GIF_ADMIN CI Discord Notification (success)
+      - name: GIF_CLIENT CI Discord Notification (success)
         if: ${{ success() }}
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD }}
-          title: '✅ GIF_ADMIN CI Success! ✅'
+          title: '✅ GIF_CLIENT CI Success! ✅'
           status: ${{ job.status }}
-          description: '성공하였습니다'
+          description: 'GIF Client 빌드 성공'
           color: 65280
           url: 'https://github.com/sarisia/actions-status-discord'
-          username: 'GIF-ADMIN-bot'
+          username: 'GIF-CLIENT-bot'
 
-      - name: GIF_ADMIN CI Discord Notification (failure)
+      - name: GIF_CLIENT CI Discord Notification (failure)
         if: ${{ failure() }}
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD }}
-          title: '❗️ GIF_ADMIN CI Fail! ❗️'
+          title: '❗️ GIF_CLIENT CI Fail! ❗️'
           status: ${{ job.status }}
-          description: '실패하였습니다'
+          description: 'GIF Cliant 빌드 실패'
           color: 16711680
           url: 'https://github.com/sarisia/actions-status-discord'
-          username: 'GIF-ADMIN-bot'
+          username: 'GIF-CLIENT-bot'
